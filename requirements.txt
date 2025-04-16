@@ -2,8 +2,8 @@ python-dotenv
 jupyterlab
 ipywidgets
 requests
-numpy
-pandas
+# numpy
+# pandas
 scipy
 scikit-learn
 matplotlib
