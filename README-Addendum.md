@@ -1,5 +1,7 @@
 # Addendum
 
+## Week 1 Day 1 - Getting Started
+
 ### Git Clone
 git clone https://github.com/christseng89/llm_engineering.git
 cd llm_engineering
@@ -46,3 +48,11 @@ def display_summary(url):
     summary = summarize(url)
     display(Markdown(summary))
 ```
+
+### Week1 Day 1 - Summery
+What you can do ALREADY
+
+- Use Ollama to run LLMs locally on your box
+- Write code to call OpenAI's frontier models
+- Distinguish between the System and User prompt
+- Summarization - applicable to many commercial problems
