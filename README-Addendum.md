@@ -125,3 +125,60 @@ http://localhost:8888/lab/workspaces/auto-O/tree/week1/day2_EXERCISE.ipynb
 ### Week 1 Day 2 - Assignment (using Week1 Day1 OpenAI to Ollama)
 // Ollama is running
 http://localhost:8888/lab/workspaces/auto-e/tree/week1/solutions/day2_SOLUTION.ipynb
+
+## Week 1 Day 3
+
+### Learning Objectives
+What you'll be able to do today – deeper intuition into frontier
+
+- Compare the top 6 Frontier models
+  - **OpenAI**  
+    Models: GPT, o1  
+    Chat: ChatGPT  
+  - **Anthropic**  
+    Models: Claude  
+    Chat: Claude  
+  - **Google**  
+    Models: Gemini  
+    Chat: Gemini Advance  
+  - **Cohere**  
+    Models: Command R+  
+    Chat: Command R+  
+  - **Meta**  
+    Models: Llama  
+    Chat: meta.ai  
+  - **Perplexity**  
+    Models: Perplexity  
+    Search: Perplexity
+
+- Appreciate what they do well, mind-blowing performance from Frontier LLMs
+  - Synthesizing information
+    Answering a question in depth with a structured, well researched answer and often including a summary
+  - Fleshing out a skeleton
+    From a couple of notes, building out a well crafted email, or a blog post, and iterating on it with you until perfect
+  - Coding
+    The ability to write and debug code is remarkable; far overtaken Stack Overflow as the resource for engineers
+
+- Recognize where they struggle, limitations of frontier models
+  - Specialized domains
+    Most are not PhD level, but closing in
+  - Recent events
+    Limited knowledge beyond training cut-off date
+  - Can confidently make mistakes
+    Some curious blind spots
+
+Claude AI
+https://claude.ai/chat 
+  => Claude和GPT模型具有不同的训练方法，这有时会对同一问题产生不同的视角，当寻求多种观点时，这可能很有价值。
+  例如，Claude可能会给出更具创造性或直观的答案，而GPT可能会提供更直接或实用的答案。
+
+```cmd
+venv\Scripts\activate
+cd week1
+python day3_authors.py
+python day3_claude_openai.py
+
+```
+
+Google AI
+https://gemini.google.com/
