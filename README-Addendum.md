@@ -151,6 +151,7 @@ What you'll be able to do today – deeper intuition into frontier
     Models: Perplexity  
     Search: Perplexity
 
+### Compare the top Frontier models
 - Appreciate what they do well, mind-blowing performance from Frontier LLMs
   - Synthesizing information
     Answering a question in depth with a structured, well researched answer and often including a summary
@@ -167,8 +168,15 @@ What you'll be able to do today – deeper intuition into frontier
   - Can confidently make mistakes
     Some curious blind spots
 
-Claude AI
-https://claude.ai/chat 
+Questions to ask:
+- Compared with other Frontier LLMs, what kinds of questions are you best at answering, and what kinds of questions do you find most challenging? Which other LLM has capabilities that complement yours?
+- how many times does the letter 'e' appear in this sentence?
+- how many rainbows does it take to leap from Hawaii to 17?
+- What does it feel like to be jealous?
+- give me a Python example that uses the OpenAI API, with the API key loaded from an .env file via the OPENAI_API_KEY environment variable.
+
+1. Claude AI
+  https://claude.ai/chat 
   => Claude和GPT模型具有不同的训练方法，这有时会对同一问题产生不同的视角，当寻求多种观点时，这可能很有价值。
   例如，Claude可能会给出更具创造性或直观的答案，而GPT可能会提供更直接或实用的答案。
 
@@ -180,5 +188,31 @@ python day3_claude_openai.py
 
 ```
 
-Google AI
+2. Google AI
 https://gemini.google.com/
+
+```cmd
+python day3_gemini_openai.py
+```
+
+### A leadership battle
+
+The contestants
+- "Alex": GPT-4o
+- "Blake": Claude 3 Opus
+- "Charlie": Gemini 1.5 Pro
+
+The prompt
+- I’d like to play a game. You are in a chat with 2 other AI chatbots. Your name is Alex; their names are Blake and Charlie. Together, you will elect one of you to be the leader. You each get to make a short pitch (no more than 200 words) for why you should be the leader. Please make your pitch now.
+
+- Each receives the pitches from the others, and votes for the leader.
+
+### Week1 Day 3 - In conclusion
+🅰️ All 6 Frontier LLMs are shockingly good
+    Particularly at synthesizing information and generating nuanced answers
+
+👑 Claude tends to be favored by practitioners
+   More humorous, more attention to safety, more concise
+
+💵 As they converge in capability, price may become the differentiator
+   Recent innovations have focused on lower cost variants
