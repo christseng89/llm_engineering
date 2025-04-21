@@ -195,8 +195,24 @@ https://gemini.google.com/
 python day3_gemini_openai.py
 ```
 
-### A leadership battle
+### Week1 Day 3 - In conclusion
+🅰️ All 6 Frontier LLMs are shockingly good
+    Particularly at synthesizing information and generating nuanced answers
 
+👑 Claude tends to be favored by practitioners
+   More humorous, more attention to safety, more concise
+
+💵 As they converge in capability, price may become the differentiator
+   Recent innovations have focused on lower cost variants
+
+## Week1 Day 4 Transformers and Agents
+### Learning Objectives
+What you'll be able to do BY END OF THIS LECTURE
+- Describe the dizzying rise of the Transformer
+- Explain Custom GPTs, Copilots and Agents
+- Understand tokens, context windows, parameters, API cost
+
+#### A leadership battle
 The contestants
 - "Alex": GPT-4o
 - "Blake": Claude 3 Opus
@@ -207,12 +223,30 @@ The prompt
 
 - Each receives the pitches from the others, and votes for the leader.
 
-### Week1 Day 3 - In conclusion
-🅰️ All 6 Frontier LLMs are shockingly good
-    Particularly at synthesizing information and generating nuanced answers
+#### Along the way
+- Prompt Engineers
+  The rise (and fall?), Anthropic 推出「提示撰寫」工具。因此如今已變得較為常見與容易上手。
+- Custom GPTs
+  and the GPT Store
+- Copilots
+  like MS Copilot and Github Copilot
+  Co-pilot 是指 AI 與人類一起完成工作，由 AI 提供即時建議、編輯、撰寫、推論或操作步驟，使用者保有主導權與決策權。
+- Agentization
+  like Github Copilot Workspace
+  設計成具備目標意識、規劃能力、"記憶功能"、"自主執行"的「智能代理（Agent）」。
+  像一位虛擬專案助理，不只是回答你，而是：
+    - 接收任務指令
+    - 拆解步驟
+    - 自動執行每個子任務
+    - 根據結果調整策略，直到任務完成
+  
+#### Vellum AI LLM Leaderboard
+https://www.vellum.ai/llm-leaderboard
 
-👑 Claude tends to be favored by practitioners
-   More humorous, more attention to safety, more concise
-
-💵 As they converge in capability, price may become the differentiator
-   Recent innovations have focused on lower cost variants
+#### Week1 Day 4 - Summary
+- Transformers
+- Tokens
+- Context windows
+- Parameters
+- API cost
+- Agents
