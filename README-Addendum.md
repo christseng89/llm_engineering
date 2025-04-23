@@ -250,3 +250,30 @@ https://www.vellum.ai/llm-leaderboard
 - Parameters
 - API cost
 - Agents
+
+### Week 1 Day 5 - Objectives
+Company Sales Brochure Generator - Create a product that can generate marketing brochures about a company
+- For prospective clients
+- For investors
+- For recruitment
+
+The technology
+- Use OpenAI API
+- Use one-shot prompting
+- Stream back results and show with formatting
+
+#### Create a brochure for a company
+http://localhost:8888/lab/tree/week1/day5.ipynb
+
+#### Exercise
+http://localhost:8888/lab/tree/week1/week1%20EXERCISE.ipynb
+
+CHALLENGE
+- For the first call to make links: Try extending to multi-shot prompting
+- For the second call to make the brochure: Add more instructions to provide the Brochure in a particular format, with sections you specify
+- And: Make a third call to an LLM to translate the entire brochure to Spanish
+
+http://localhost:8888/lab/tree/week1/community-contributions/week1-day5-CHALLENGE.ipynb
+
+#### Appendix
+https://edwarddonner.com/2024/11/13/llm-engineering-resources/
