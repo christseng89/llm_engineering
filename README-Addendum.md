@@ -1,5 +1,61 @@
 # Addendum
 
+## Resources
+https://edwarddonner.com/2024/11/13/llm-engineering-resources/
+
+## Learning Path
+# 🧠 LLM Engineering Roadmap
+
+## 🚀 You Started Here
+
+---
+
+### 📅 Week 1  
+**What a time to be working with LLMs**
+
+---
+
+### 📅 Week 2  
+**Frontier Models**  
+- UIs  
+- Agentization  
+- Multi-modality
+
+---
+
+### 📅 Week 3  
+**Open Source with HuggingFace**
+
+---
+
+### 📅 Week 4  
+**Selecting LLMs and Code Generation**
+
+---
+
+### 📅 Week 5  
+**RAG and Question Answering**  
+*Creating an Expert*
+
+---
+
+### 📅 Week 6  
+**Fine-tuning a Frontier Model**
+
+---
+
+### 📅 Week 7  
+**Fine-tuning an Open-Source Model**
+
+---
+
+### 📅 Week 8  
+**The Finale — Mastering LLM Engineering**
+
+---
+
+🏁 **Graduation: Become an LLM ENGINEER**
+
 ## Week 1 Day 1 - Getting Started
 
 ### Git Clone
@@ -275,5 +331,25 @@ CHALLENGE
 
 http://localhost:8888/lab/tree/week1/community-contributions/week1-day5-CHALLENGE.ipynb
 
-#### Appendix
-https://edwarddonner.com/2024/11/13/llm-engineering-resources/
+## Week2 Frontier LLMs
+
+### Week 2 Day 1
+#### Learning Objectives
+- Use API for Anthropic / Claude
+- Use API for Google / Gemini
+- Write code that interacts between frontier LLMs
+
+#### Setting up your environment
+🔑 Set up an Anthropic API Key => https://console.anthropic.com/
+🔑 Set up a Google API Key => https://ai.google.dev/gemini-api
+🔑 Set up a DeepSeek API Key (Optional) =>
+🧬 Update your .env file
+```note
+OPENAI_API_KEY=xxxx
+ANTHROPIC_API_KEY=xxxx
+GOOGLE_API_KEY=xxxx
+DEEPSEEK_API_KEY=xxxx
+```
+
+#### Jupyter Lab
+http://localhost:8888/lab/tree/week2/day1.ipynb
