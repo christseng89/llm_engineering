@@ -353,3 +353,21 @@ DEEPSEEK_API_KEY=xxxx
 
 #### Jupyter Lab
 http://localhost:8888/lab/tree/week2/day1.ipynb
+
+### Week 2 Day 2
+
+#### Objectives
+Today you will be able to
+- Describe Gradio, the remarkable platform for data science UIs
+- Create a simple UI using Gradio
+- Hook up Gradio to Frontier models
+
+https://www.gradio.app/
+
+Now we will:
+- Create a UI for API calls to GPT, Claude and Gemini
+- Create a UI for the Company Brochure from Week 1
+- Include Streaming and Markdown
+
+http://localhost:8888/lab/tree/week2/day2.ipynb
+http://127.0.0.1:7861/
