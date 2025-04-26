@@ -3,17 +3,10 @@
 ## Resources
 https://edwarddonner.com/2024/11/13/llm-engineering-resources/
 
-## Learning Path
-# 🧠 LLM Engineering Roadmap
-
-## 🚀 You Started Here
-
----
+## 🧠 LLM Engineering Learning Roadmap - 🚀 You Started Here
 
 ### 📅 Week 1  
 **What a time to be working with LLMs**
-
----
 
 ### 📅 Week 2  
 **Frontier Models**  
@@ -21,38 +14,24 @@ https://edwarddonner.com/2024/11/13/llm-engineering-resources/
 - Agentization  
 - Multi-modality
 
----
-
 ### 📅 Week 3  
 **Open Source with HuggingFace**
 
----
-
 ### 📅 Week 4  
 **Selecting LLMs and Code Generation**
-
----
 
 ### 📅 Week 5  
 **RAG and Question Answering**  
 *Creating an Expert*
 
----
-
 ### 📅 Week 6  
 **Fine-tuning a Frontier Model**
-
----
 
 ### 📅 Week 7  
 **Fine-tuning an Open-Source Model**
 
----
-
 ### 📅 Week 8  
 **The Finale — Mastering LLM Engineering**
-
----
 
 🏁 **Graduation: Become an LLM ENGINEER**
 
@@ -371,3 +350,29 @@ Now we will:
 
 http://localhost:8888/lab/tree/week2/day2.ipynb
 http://127.0.0.1:7861/
+
+## Week 2 Day 3
+#### Learning Objectives
+- Create a Chat UI in Gradio
+- Provide conversation history in a prompt
+- Build your first customer support assistant
+
+#### An AI Assistant is a very common Gen AI use case
+LLM based Chatbots are remarkably effective at conversation
+- Friendly, knowledgeable persona
+- Ability to maintain context between messages
+- Subject matter expertise to answer questions
+
+#### The use of Prompts with our Assistant
+🟧 The System Prompt
+- Set tone
+- Establish ground-rules, like “If you don’t know the answer, just say so”
+- Provide critical background context
+
+🟧 Context
+- During the conversation, insert context to give more relevant background information pertaining to the topic
+
+🟧 Multi-Shot Prompting
+- Provide example conversations to prime for specific scenarios, train on conversational style and demonstrate complex interactions
+
+http://localhost:8888/lab/tree/week2/day3.ipynb
