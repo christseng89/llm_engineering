@@ -376,3 +376,95 @@ LLM based Chatbots are remarkably effective at conversation
 - Provide example conversations to prime for specific scenarios, train on conversational style and demonstrate complex interactions
 
 http://localhost:8888/lab/tree/week2/day3.ipynb
+
+## Week 2 Day 4
+#### Learning Objectives
+- Define Tools
+- Give common use cases for Tools
+- Code an AI Assistant that incorporates Tools
+
+#### Tools are a powerful way to extend the capabilities of LLMs
+Defining Tools => 讓 LLM 做到自己做不到的事
+- Tools allows Frontier models to connect with external functions
+- Richer responses by extending knowledge
+- Ability to carry out actions within the application
+- Enhanced capabilities, like calculations
+
+How it works
+- In a request to the LLM, specify available Tools
+- The reply is either Text, or a request to run a Tool
+- We run the Tool and call the LLM with the results
+
+Tools Examples
+🔍 網路搜尋工具（Web Search Tool）
+🧮 計算器工具（Calculator Tool）
+📅 行事曆管理工具（Calendar Tool）
+🛒 電商下單工具（E-commerce Tool）
+📦 資料庫查詢工具（Database Query Tool）
+📄 文件生成工具（Document Generator Tool）
+🧠 Embedding檢索工具（Vector Search Tool）
+
+Common Use Cases For Tools - Function Calls can enable assistants to:
+- Fetch data or add knowledge or context
+- Take action, like booking a meeting
+- Perform calculations
+- Modify the UI
+
+http://localhost:8888/lab/tree/week2/day4.ipynb
+
+✅ 升級版 Function Calling 時序圖（Sequence Diagram）
+使用者
+  |
+  | (1) 輸入訊息：「Paris New York」
+  v
+chat() 函式
+  |
+  | (2) 組成 messages：[system_message, 歷史, 新的 user 訊息]
+  |
+  | (3) 呼叫 ’OpenAI API’ (帶入 tools 工具清單)
+  v
+OpenAI LLM
+  |
+  | (4) 理解訊息內容
+  | (5) 決定要呼叫工具 get_ticket_price
+  | (6) 產生多個 tool_calls：***
+      ├─ tool_call_id_1（查詢 Paris）
+      └─ tool_call_id_2（查詢 New York）
+  | (7) 回傳包含 tool_calls 的 assistant message
+  v
+chat() 函式
+  |
+  | (8) 呼叫 handle_tool_call(message)
+  v
+handle_tool_call(message)
+  |
+  | (9) 逐個處理 tool_calls：
+      ├─ 解析 destination_city (可能是多城市，例如 "北京 南京")
+      ├─ 呼叫 split_cities(destination_city)
+      ├─ 將中文、英文、各種分隔符正規化 ➔ 斷成多個城市
+  |
+  | (10) 對每個 tool_call 產生對應的 tool 回應 message
+      ├─ 查票價，如果找不到則 fuzzy match（模糊比對）
+      ├─ 組成單一城市的回覆資料
+  |      
+  | (11) 回傳所有 tool_responses
+  v
+chat() 函式
+  |
+  | (12) 將 assistant 的 tool_calls message 加進 messages
+  | (13) 將每個 tool response 加進 messages
+  |
+  | (14) 再次呼叫 ’OpenAI API’ (這次有 tool 回應內容)
+  v
+OpenAI LLM
+  |
+  | (15) 收到 tools 結果
+  | (16) 整合並生成最終自然語言回答：
+      「Paris 的票價是 $899，New York 的票價是 $1200」
+  v
+chat() 函式
+  |
+  | (17) 把最終回覆傳回使用者
+  v
+使用者
+
