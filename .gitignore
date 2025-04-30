@@ -186,3 +186,5 @@ week4/simple
 
 .vscode/settings.json
 .vscode/tasks.json
+**/*.webp
+**/*.mp3

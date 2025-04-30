@@ -63,6 +63,9 @@ https://platform.openai.com/login
 
 Dashboard > API Keys > Create new secret key
 
+#### OpenAI APIs Usage
+https://platform.openai.com/settings/organization/usage
+
 ### Create .env file
 OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
@@ -468,3 +471,50 @@ chat() 函式
   v
 使用者
 
+## Week 2 Day 5
+#### Learning Objectives
+- Describe Agents
+- Explain how Agents can carry out sequential activities
+- Complete a multi-modal AI Assistant with Agents and Tools
+
+#### DEFINING AGENTS
+- Software entities that can autonomously perform tasks
+
+Common characteristics of an Agent
+- Autonomous
+- Goal-oriented
+- Task specific
+
+Designed to work as part of an Agent Framework to solve complex problems with limited human involvement
+- Memory / persistence
+- Decision-making / orchestration
+- Planning capabilities
+- Use of tools; potentially connecting to databases or the internet
+
+#### What we are about to do
+- Image Generation
+  Use the OpenAI interface to generate images
+- Make Agents
+  Create Agents to generate ‘sound‘ and ‘images‘ for our store
+- Make an Agent Framework
+  Teach our AI Assistant to speak and draw
+
+```cmd
+choco install ffmpeg
+```
+
+http://localhost:8888/lab/tree/week2/day5.ipynb
+- Search ticket prices - tools
+- Speak the search results - talker()
+- Draw the first city image - artist()
+
+#### Add more Tools / Agents to enhance capabilities:
+- Add another Tool to make a booking
+- Add an Agent that translates all responses to a different language and shows on the right hand side, using a different Frontier model
+- Add an Agent that can listen for Audio and convert it to Text
+
+```cmd
+pip install git+https://github.com/openai/whisper.git
+```
+
+http://localhost:8888/lab/tree/week2/community-contributions/week2_day5_translation_audio.ipynb
