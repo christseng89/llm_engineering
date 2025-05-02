@@ -93,9 +93,38 @@ image.save("surreal.png")
 - Build a multi-modal AI Assistant with Tools
 - Navigate the HuggingPlace platform; run code on Colab ***
 
-#### What's next
-Run open-source models!
-
+### Week3 Day2
+#### Learning Objectives
 - Understand the 2 different levels of HuggingFace API
 - Use pipelines for a wide variety of AI tasks
 - Use pipelines to generate text, images and audio
+
+#### The Two API Levels of Hugging Face
+- Pipelines
+    Higher level APIs to carry out standard tasks incredibly quickly (PoC)
+- Tokenizers and Models
+    Lower level APIs to provide the most power and control (Production)
+
+#### Pipelines are incredibly versatile and simple
+Unleash the power of open-source models in your solutions in 2 lines of code, 常見用途（Icons + 功能）：
+- 🙂😠 Sentiment analysis
+- 🗂️ Classifier
+- 🧾🧑‍⚖️ Named Entity Recognition
+- ❓🅰️ Question Answering
+- 📄📄📄 Summarizing
+- 🔁🌐 Translation
+- 🗣️ Text to Speech
+- 🎤 Speech to Text
+
+Use pipelines to generate content
+- 📝 Text
+- 🖼️ Image
+- 🎙️ Audio
+
+Google Drive - Notebook (Week 3 day 2 - pipelines.ipynb)
+https://colab.research.google.com/drive/1I3K2EzWC5MGyJlGEcmOMrTmHE4tVewbU#scrollTo=vgG4kcT_4lO_
+
+#### What you can now do
+- Confidently code with Frontier Models
+- Build a multi-modal AI Assistant with Tools
+- Use HuggingFace pipelines for a wide variety of inference tasks
