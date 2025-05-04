@@ -1,4 +1,8 @@
 # LLM Learning NOTES part 2
+```cmd
+venv\Scripts\activate
+jupyter lab
+```
 
 ### Week3 Day1
 #### Learning Objectives
@@ -128,3 +132,51 @@ https://colab.research.google.com/drive/1I3K2EzWC5MGyJlGEcmOMrTmHE4tVewbU#scroll
 - Confidently code with Frontier Models
 - Build a multi-modal AI Assistant with Tools
 - Use HuggingFace pipelines for a wide variety of inference tasks
+
+### Week3 Day3
+#### Learning Objectives
+- Create tokenizers for models
+- Translate between text and tokens
+- Understand special tokens and chat templates
+
+#### Introducing the Tokenizer
+Maps between Text and Tokens for a particular model
+- Translates between Text and Tokens with encode() and decode() methods '<|begin_of_text|>'
+- Contains a Vocab that can include special tokens to signal information to the LLM, like start of prompt
+- Can include a Chat Template that knows how to format a chat message for this model
+
+| 項目    | Tokenizer        | Embedding                     |
+| ----- | ---------------- | ----------------------------- |
+| 功能    | 將文字轉換為 token IDs | 將 token IDs 轉換為語意向量           |
+| 處理對象  | 文字（text）         | token ID（整數）                  |
+| 是否可訓練 | 否（通常是預設詞彙表）      | 是（模型訓練時更新）                    |
+| 範例工具  | `AutoTokenizer`  | Transformer 模型內部的 embedding 層 |
+| 模型中位置 | 模型外部（預處理）        | 模型內部（第一層）                     |
+| 輸入格式  | 文字（string）         | token ID（整數）                  |
+| 輸出格式  | token ID（整數）         | 語意向量（向量）                    |
+| 轉換方式  | 將文字轉換為 token ID      | 將 token ID 轉換為語意向量           |
+
+#### The Tokenizers for key models
+We will experiment with tokenizers for a variety of open-source models
+
+- Llama 3.1 
+    Meta led the way
+- Phi 3
+    Microsoft's entrant
+- Qwen2
+    Leader from Alibaba Cloud
+- Starcoder2
+    Coding model
+
+```Note
+1. Hugging Face Token with Write access
+2. Hugging Face Models need to be authorized in advance via Web Site.
+```
+
+#### Pipeline Code
+http://localhost:8888/lab/tree/week3/day2.pipelines.ipynb
+https://colab.research.google.com/drive/1I3K2EzWC5MGyJlGEcmOMrTmHE4tVewbU  (T4 GPU)
+
+#### Tokenizer Code
+http://localhost:8888/lab/tree/week3/day3.tokenizers.ipynb
+https://colab.research.google.com/drive/1Lvmx-_XVQ1ntldGWBY2NIfWlV-3pyvV0#scrollTo=y7LTUIlD9Gdm
