@@ -215,3 +215,40 @@ model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3-8B", quantizati
     - 可讓工程師針對特定任務或瓶頸進行最佳化。
     - 是打造更高效 Agent 或 AI Assistant 的基礎。
 - Streaming
+
+#### Model Code
+http://localhost:8888/lab/tree/week3/day4.models.ipynb
+https://colab.research.google.com/drive/1l9sEZswOwqOdgzrin0s9hm4zmFkpOtUQ
+
+### Week 3 Day 5
+#### Learning Objectives
+- Confidently work with tokenizers and models
+- Run inference on open-source models
+- Implement an LLM solution combining Frontier and open-source models
+
+#### Create a solution that makes meeting minutes
+Take an audio recording of a meeting, and generate minutes and actions
+
+- Use a Frontier model to convert the audio to text
+- Use the open source model to generate minutes
+- Stream back results and show in Markdown
+
+Dataset => https://huggingface.co/datasets/huuuyeah/meetingbank
+Download => https://huggingface.co/datasets/huuuyeah/MeetingBank_Audio/tree/main
+
+MyDrive/
+└── llms/
+    └── denver_extract.mp3
+
+
+http://localhost:8888/lab/tree/week3/day5.meeting_minutes.ipynb
+https://colab.research.google.com/drive/1klKAzdsW0sa7NUMvX9UHSyDuJwgCsha3
+
+#### Generating Synthetic Data
+
+- Write models that can generate datasets
+- Use a variety of models and prompts for diverse outputs
+- Create a Gradio UI for your product
+
+#### Week 3 Day 5 - Exercise
+day5.meeting_minutes.ipynb => With Gradio UI
