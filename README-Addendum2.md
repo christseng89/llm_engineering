@@ -4,7 +4,7 @@ venv\Scripts\activate
 jupyter lab
 ```
 
-### Week3 Day1
+### Week 3 Day 1
 #### Learning Objectives
 - Describe the 'HuggingFace' platform and everything it offers
 - Look at Models, Datasets and Spaces
@@ -97,7 +97,7 @@ image.save("surreal.png")
 - Build a multi-modal AI Assistant with Tools
 - Navigate the HuggingPlace platform; run code on Colab ***
 
-### Week3 Day2
+### Week 3 Day 2
 #### Learning Objectives
 - Understand the 2 different levels of HuggingFace API
 - Use pipelines for a wide variety of AI tasks
@@ -133,7 +133,7 @@ https://colab.research.google.com/drive/1I3K2EzWC5MGyJlGEcmOMrTmHE4tVewbU#scroll
 - Build a multi-modal AI Assistant with Tools
 - Use HuggingFace pipelines for a wide variety of inference tasks
 
-### Week3 Day3
+### Week 3 Day 3
 #### Learning Objectives
 - Create tokenizers for models
 - Translate between text and tokens
@@ -180,3 +180,38 @@ https://colab.research.google.com/drive/1I3K2EzWC5MGyJlGEcmOMrTmHE4tVewbU  (T4 G
 #### Tokenizer Code
 http://localhost:8888/lab/tree/week3/day3.tokenizers.ipynb
 https://colab.research.google.com/drive/1Lvmx-_XVQ1ntldGWBY2NIfWlV-3pyvV0#scrollTo=y7LTUIlD9Gdm
+
+### Week 3 Day 4
+#### Learning Objectives (Models)
+- Work with HuggingFace lower level APIs
+- Use HuggingFace models to generate text
+- Compare the results across 5 open source models
+
+#### We will use these models
+We will try Llama 3.1, Phi and Gemma, and you should try Mixtral and Qwen2
+
+- Llama 3.1 from Meta
+- Phi 3 from Microsoft
+- Gemma from Google
+- Mixtral from Mistral (try)
+- Qwen 2 from Alibaba Cloud (try)
+
+We will also cover…
+
+- Quantization
+| 精度   | 類型說明               | 特點                          |
+|--------|------------------------|-------------------------------|
+| FP32   | 32-bit float           | 高精度、較耗資源              |
+| INT8   | 8-bit integer          | 最常見量化精度，速度快        |
+| INT4   | 4-bit integer          | 精度犧牲更多，節省更多空間    |
+| BF16   | bfloat16（Google）     | 保留範圍，但減少精度          |
+
+```code
+quant_config = BitsAndBytesConfig(load_in_4bit=True)
+model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3-8B", quantization_config=quant_config)
+```
+- Model Internals
+    - 有助於**微調（Fine-tuning）或壓縮模型（Quantization）**時做出最佳決策。
+    - 可讓工程師針對特定任務或瓶頸進行最佳化。
+    - 是打造更高效 Agent 或 AI Assistant 的基礎。
+- Streaming
