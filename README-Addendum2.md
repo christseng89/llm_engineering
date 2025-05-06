@@ -252,3 +252,43 @@ https://colab.research.google.com/drive/1klKAzdsW0sa7NUMvX9UHSyDuJwgCsha3
 
 #### Week 3 Day 5 - Exercise
 day5.meeting_minutes.ipynb => With Gradio UI
+
+### Week 4 Day 1
+#### Learning Objectives
+- Discuss how to select the right LLM for the task
+- Compare LLMs based on their basic attributes and benchmarks
+- Use the Open LLM Leaderboard to evaluate LLMs
+
+#### How to compare LLMs
+Importantly, LLMs need to be evaluated for suitability for a given task
+
+- Start with the basics
+    Parameters
+    Context length
+    Pricing
+
+- Then look at the results
+    Benchmarks
+    Leaderboards
+    Arenas
+
+#### COMPARING LLMs
+The Basics (1) - Compare the following features of an LLM:
+
+- Open-source or closed
+- Release date and knowledge cut-off
+- Parameters
+- Training tokens
+- Context length
+
+The Basics (2) - Compare the following features of an LLM:
+
+- Inference cost
+    API charge, Subscription or Runtime compute
+- Training cost
+- Build cost
+- Time to Market
+- Rate limits
+- Speed
+- Latency
+- License
