@@ -292,3 +292,144 @@ The Basics (2) - Compare the following features of an LLM:
 - Speed
 - Latency
 - License
+
+#### The Chinchilla Scaling Law
+Number of parameters ~ proportional to the number of training tokens
+
+- If you're getting diminishing returns from training with more training data, then this law gives you a rule of thumb for scaling your model.
+- And vice versa: if you upgrade to a model with double the number of weights, this law indicates your training data requirement.
+- The Chinchilla Scaling Law is a guideline for scaling LLMs, suggesting that the number of parameters should be proportional to the number of training tokens.
+
+| 模型              | 參數數量 | 訓練 token 數量     | 是否符合 Chinchilla 法則？ |
+| --------------- | ---- | --------------- | ------------------- |
+| **GPT-3**       | 175B | 300B tokens     | ❌ 訓練資料略偏少           |
+| **Chinchilla**  | 70B  | **1.4T tokens** | ✅ 完全符合              |
+| **LLaMA 2 13B** | 13B  | 1.4T tokens     | ✅ 適中偏多              |
+| **GPT-4 (推估)**  | \~1T | \~10T+ tokens?  | ✅ 微調訓練資料比例          |
+
+🧪 結論說明：
+- GPT-3 使用了大量參數但相對較少的訓練資料，造成推理效果不如預期。
+- Chinchilla（由 DeepMind 提出）是以 降低參數量但增加資料量 為目標，結果在多個基準測試中 超越 GPT-3。
+- 後來的 LLaMA 與 GPT-4 等模型皆 朝向此法則設計，避免模型「過大卻學不多」的低效現象。
+
+🎯 類比說明：
+你可以把 LLM 想像成一個腦袋：
+- 參數越多 → 腦容量越大 → 可學習越多樣的語言知識與推理技巧
+- 但如果沒有足夠的「訓練資料」去教它，這個大腦也會「笨笨的」（這就是 Chinchilla Scaling Law 要解決的問題）
+
+#### 7 common benchmarks that you will often encounter 你經常會遇到的 7 個常見基準測試）
+| Benchmark      | What’s being evaluated | Description                                                                |
+| -------------- | ---------------------- | -------------------------------------------------------------------------- |
+| **ARC**        | Reasoning**              | A benchmark for evaluating scientific reasoning; multiple-choice questions |
+| **DROP**       | Language Comp          | Distill details from text then add, count or sort                          |
+| **HellaSwag**  | Common Sense           | "Harder Endings, Long Contexts and Low Shot Activities"                    |
+| **MMLU**       | Understanding          | Factual recall, reasoning and problem solving across 57 subjects           |
+| **TruthfulQA** | Accuracy               | Robustness in providing truthful replies in adversarial conditions         |
+| **Winogrande** | Context                | Test the LLM understands context and resolves ambiguity                    |
+| **GSM8K**      | Math                   | Math and word problems taught in elementary and middle schools             |
+
+**Reasoning（推理）是指模型運用邏輯、規則、或知識來進行推斷、分析、判斷的能力。在大型語言模型（LLM）中，這項能力決定了它是否能正確回答需要多步邏輯推理的問題。
+
+#### 3 specific benchmarks
+
+| **Benchmark** | **What's being evaluated** | **Description**                                                           |
+| ------------- | -------------------------- | ------------------------------------------------------------------------- |
+| **ELO**       | Chat                       | Results from head-to-head face-offs with other LLMs, as with ELO in Chess |
+| **HumanEval** | Python Coding              | 164 problems writing code based on docstrings                             |
+| **MultiPL-E** | Broader Coding             | Translation of HumanEval to 18 programming languages                      |
+
+#### Limitations of Benchmarks
+- Not consistently applied
+- Too narrow in scope
+- Hard to measure nuanced reasoning
+- Training data leakage
+- Over-fitting
+
+And a new concern, not yet proven
+- Frontier (先進的) LLMs may be aware that they are being evaluated (考前偷看考題)
+
+避免「Frontier LLMs 在被評估時早已見過測試資料」的問題（即 評估失真），可以考慮以下幾種方法：
+✅ 1. 使用隱藏測試集（Private Test Sets）
+- 建立一組從未公開過的測試資料，確保模型在訓練期間無法接觸到。
+- 這類資料不能出現在網路上，也不能來自常見的 benchmark 數據集。
+
+✅ 2. 建立合成測驗（Synthetic Benchmarks）
+- 用其他模型或人類設計全新問題，模仿 benchmark 題型但內容不同。
+- 確保這些新資料不可能是訓練語料的一部分。
+
+✅ 3. 加入防洩漏檢查（Data Leakage Detection）
+- 檢查模型訓練語料是否包含你要用來測試的資料。
+- 有些工具（如 DLC）可以協助檢查語料重複或重疊。
+
+✅ 4. 分析模型反應以識別記憶痕跡
+- 如果模型回答得過於流暢、準確、快速，可能就是「背過」了答案。
+- 可藉由讓模型多次回覆同一問題並觀察變異性，來判斷是否為背誦。
+
+✅ 5. 結合不同評估方式
+- 不要只用選擇題（multiple choice），也用開放型問題（open-ended）、推論題（reasoning）、代碼生成等方式混合測試。
+- 多樣的題型能更好地辨別「真正理解」與「死記答案」。
+
+✅ 6. 避免過度微調 Benchmark 題目
+- 若模型經過針對 ARC、MMLU、HellaSwag 等 benchmark 題目的微調，就會變得「知道」怎麼應考。
+- 評估時應使用基礎版本（未特別針對 benchmark 調整過的模型）。
+
+✅ 7. 使用 Blind 評分
+- 在人類評分時隱藏是哪個模型產生的回答，防止偏見。
+- 這方法常用於 Arena 模式評比，例如 LMSYS Chatbot Arena。
+
+#### 6 Hard, Next-Level Benchmarks
+
+| **Benchmark** | **What's being evaluated** | **Description**                                                                                                        |
+| ------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **GPQA**      | Graduate Tests             | 448 expert questions; non-PhD humans score 34% even with web access (Claude 3.5)                                                   |
+| **BBHard**    | Future Capabilities        | 204 tasks believed beyond capabilities of LLMs (no longer valid, due to improved LLMs!)                                                            |
+| **Math Lv 5** | Math                       | High-school level math 'competition' problems                                                                           |
+| **IFEval**    | Difficult instructions     | Like, "write more than 400 words" and "mention AI at least 3 times"                                                    |
+| **MuSR**      | Multistep Soft Reasoning   | Logical deduction, such as analyzing 1,000 word murder mystery and answering: "Who has means, motive and opportunity?" |
+| **MMLU-PRO**  | Harder MMLU                | A more advanced and cleaned up version of MMLU including choice of '10' answers instead of 4                             |
+
+#### 6 Hard, Next-Level Benchmarks 舉例說明：
+
+✅ 1. GPQA（Graduate-Level Physics QA）
+- 測試內容：研究所級別的物理與科學問答。
+- 例子：
+問：「量子力學中的不確定性原理是什麼？請給出數學式與物理意涵。」
+- 應用情境：用於測試 LLM 是否具備高階學術理解與推理能力。
+
+✅ 2. BBHard（Beyond the Benchmarks Hard）
+- 測試內容：原本被認為超出 LLM 能力範圍的推理與理解任務。
+- 例子：
+給一段抽象科幻小說，要求分析其社會隱喻與邏輯前提。
+- 應用情境：檢驗 Frontier LLM 在創造力與開放式問題處理上的極限。
+
+✅ 3. Math Lv 5
+- 測試內容：高中數學競賽級問題，需高階邏輯與公式運用。
+- 例子：
+「若一個函數滿足 f(x+y)=f(x)f(y)，且 f(0)=1，求 f(2) 的可能值。
+- 應用情境：可應用於 AI 教學輔助或工程問題推演。
+
+✅ 4. IFEval（Instruction Following Evaluation）
+- 測試內容：測試模型是否能精準依照複雜指令生成結果。
+- 例子：
+指令：「寫一篇不少於 400 字的短文，且至少 3 次提到 AI，語氣需為懷舊風格。」
+- 應用情境：對話代理或任務型 AI 的效能評估。
+
+✅ 5. MuSR（Multistep Soft Reasoning）
+- 測試內容：多步驟的柔性邏輯推理。
+- 例子：
+「閱讀一篇 1000 字的推理小說片段，推斷誰是兇手並解釋其動機與手段。」
+- 應用情境：法律助理 AI、記者助手、偵查分析工具等。
+
+✅ 6. MMLU-PRO（Massive Multitask Language Understanding - PRO版）
+- 測試內容：更高階、更乾淨的多任務理解測試，答案選項從 4 個擴增到 10 個。
+- 例子：
+「請在 10 個選項中選出描述細胞分裂週期順序正確的一項。」
+- 應用情境：醫學、工程、法學、教育等專業領域的模型能力驗證。
+
+#### Hugging Face Open LLM Leaderboard Comparison
+https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/
+
+#### What you can now do
+- Code with Frontier Models including AI Assistants with Tools
+- Build solutions with open-source LLMs with HuggingFace transformers
+- Compare LLMs to identify the right one for the task at hand
