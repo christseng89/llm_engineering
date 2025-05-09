@@ -426,10 +426,128 @@ And a new concern, not yet proven
 「請在 10 個選項中選出描述細胞分裂週期順序正確的一項。」
 - 應用情境：醫學、工程、法學、教育等專業領域的模型能力驗證。
 
-#### Hugging Face Open LLM Leaderboard Comparison
-https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/
+#### Hugging Face Open LLM Leaderboard
+https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?official=true
 
 #### What you can now do
 - Code with Frontier Models including AI Assistants with Tools
 - Build solutions with open-source LLMs with HuggingFace transformers
 - Compare LLMs to identify the right one for the task at hand
+
+### Week 4 Day 2
+#### Learning Objectives
+- Navigate the most useful leaderboards and Arenas to evaluate LLMs
+- Give real-world use cases of LLMs solving commercial problems
+- Confidently choose LLMs for your projects
+
+#### Six Leaderboards
+A tour of the essential leaderboards for selecting LLMs*
+* **HuggingFace Open LLM**
+  *New and old version*
+  - https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?official=true
+
+* **HuggingFace BigCode**
+  *Code generation*
+  - https://huggingface.co/bigcode
+* **HuggingFace LLM Perf**
+* **HuggingFace Others**
+  *e.g. Medical, Language-specific*
+* **Vellum**
+  *includes API cost and context window*
+* **SEAL**
+  *expert skills*
+
+#### The Arena
+https://lmarena.ai/?leaderboard
+
+The LMSYS Chatbot Arena is an amazing resource
+- Compare Frontier and Open-source models directly
+- Blind human evals based on head-to-head comparison
+- LLMs are measured with an 'ELO' rating
+
+Participate in the voting - it's a terrific way to learn about different models while adding to the ecosystem
+
+#### BigCode Leaderboard
+https://www.bigcode-project.org/
+https://huggingface.co/bigcode
+- StarCoder2
+- Code Llama2
+
+| 對象類別           | 用途說明                                                                                         |
+|:-------------------|:-------------------------------------------------------------------------------------------------|
+| AI 研究人員        | 研究程式碼生成、訓練效率、模型解釋性等相關主題，使用 StarCoder 模型與 The Stack 資料集進行實驗。 |
+| 程式開發者與工程師 | 使用 StarCoder 等模型進行程式碼補全、自動測試生成、程式重構建議等開發工作。                      |
+| 開源貢獻者與社群   | 貢獻開源模型與資料集，協助去敏與資料清理、提升模型品質。                                         |
+| 教育與學術機構     | 用於教授生成式 AI 與大型語言模型的程式碼應用，支持學生實作與探索。                               |
+| 企業與初創公司     | 整合至內部開發流程，打造客製化的程式開發助理與自動化工具。                                       |
+
+#### Commercial Use Cases
+- Law 
+    Harvey
+- Talent 
+    nebula.io
+- Porting code
+    Bloop (bloop.ai)
+- Healthcare 
+    Salesforce Health
+- Education 
+    Khanmigo
+
+| 應用領域                   | 公司 / 產品               | 說明                                           |
+| ---------------------- | --------------------- | -------------------------------------------- |
+| ⚖️ 法律（Law）             | **Harvey**            | 為律師或法律事務所提供 AI 法律助理，例如自動草擬合約、總結案例、回答法律問題     |
+| 🌟 人才招募（Talent）        | **nebula.io**         | 協助 HR 或獵頭快速分析履歷、推薦職缺、撰寫招募信或進行候選人篩選           |
+| 💻 程式轉換（Porting Code）  | **Bloop**             | 協助開發者閱讀舊程式碼、轉換語言（從 COBOL 到 Java）、生成文件與單元測試 |
+| ❤️‍🩹 醫療保健（Healthcare） | **Salesforce Health** | 提供 AI 醫療助理，例如病歷摘要、自動回答病人查詢、臨床決策支援            |
+| 🎓 教育（Education）       | **Khanmigo**          | 由可汗學院開發，提供學生 AI 教學助理，能即時解釋概念、批改作業或模擬老師角色     |
+
+#### BigCode Leaderboard
+https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard
+
+#### LLM Perf Leaderboard
+https://huggingface.co/spaces/optimum/llm-perf-leaderboard
+https://huggingface.co/spaces/optimum/llm-perf-leaderboard#/?official=true
+
+#### HuggingFace Spaces Leaderboard
+https://huggingface.co/spaces?q=Leaderboard
+
+#### Open Medical LLMs Leaderboard
+https://huggingface.co/spaces/openlifescienceai/open_medical_llm_leaderboard
+
+#### Vellum Leaderboard
+https://www.vellum.ai/llm-leaderboard#compare
+https://www.vellum.ai/llm-leaderboard#/?official=true
+
+#### Chatbot Arena (Human Eval)
+https://lmarena.ai/?leaderboard&gad_source=1&gad_campaignid=21946979971&gbraid=0AAAAA-d12XORV-SaxIcoX0ZeRT4lziwkW&gclid=Cj0KCQjwrPHABhCIARIsAFW2XBOMPw3jS-oz9OxTULiQwBdbhMKA-HtA9szFVmRnq7BHns_4A96jO_saAj7oEALw_wcB
+
+- Language Models
+    Category
+- Overview
+- Price Analysis
+
+- Vote
+    https://lmarena.ai/
+
+#### Other AIs solutions
+| Website              | AI Use Case                                          |
+| -------------------- | ---------------------------------------------------- |
+| **Harvey AI**        | https://www.harvey.ai Legal assistant for law firms and corporate counsel  |
+| **Nebula.io**        | Knowledge AI trained on personal docs                |
+| **Bloop.ai**         | AI code search and understanding for devs            |
+| **Einstein Copilot** | CRM assistant for business productivity (Salesforce) https://www.salesforce.com/news/press-releases/2024/02/27/einstein-copilot-news/ |
+| **Khanmigo.ai**      | AI tutor for students and teachers                   |
+
+#### BUSINESS CHALLENGE
+Introducing our commercial challenge this week
+
+- Build a product that converts Python code to C++ for performance
+    Solution with a Frontier model
+    Solution with an Open-Source model
+
+Let's start by selecting the LLMs most suited for the task
+
+#### What you can now do
+- Code with Frontier Models including AI Assistants with Tools
+- Build solutions with open-source LLMs with HuggingFace transformers (i.e. from transformers import pipeline, tokenizer, model)
+- Confidently choose the right LLM for your project, backed by metrics (Leaderboards, Benchmarks, ELO ratings)
