@@ -551,3 +551,54 @@ Let's start by selecting the LLMs most suited for the task
 - Code with Frontier Models including AI Assistants with Tools
 - Build solutions with open-source LLMs with HuggingFace transformers (i.e. from transformers import pipeline, tokenizer, model)
 - Confidently choose the right LLM for your project, backed by metrics (Leaderboards, Benchmarks, ELO ratings)
+
+### Week 4 Day 3
+#### Learning Objectives
+- Assess models for coding ability
+- Use Frontier models to generate code
+- Build a solution that uses LLMs to generate code
+
+#### Reminder of the challenge
+- Build a product that converts Python code to C++ for performance
+   Today we will start with the Frontier Model solution
+
+- Testing the models
+    - Use the same code to test all models, we'll use this approach to test our models
+        "Please reimplement this Python code in C++ with the fastest possible implementation for an M1 Mac. Only respond with the C++ code. Do not explain your implementation. The only requirement is that the C++ code prints the same result and runs fast."
+```code
+import time
+
+def calculate(iterations, param1, param2):
+    result = 1.0
+    for i in range(1, iterations + 1):
+        j = i * param1 - param2
+        result -= (1 / j)
+        j = i * param1 + param2
+        result += (1 / j)
+    return result
+
+start_time = time.time()
+result = calculate(100_000_000, 4, 1) * 4
+end_time = time.time()
+
+print(f"Result: {result:.12f}")
+print(f"Execution Time: {(end_time - start_time):.6f} seconds")
+```
+
+##### Coding Leaderboard
+https://scale.com/leaderboard/coding
+
+- Download Clang+llvm https://github.com/llvm/llvm-project/releases;
+- Move the extracted folder to a permanent location (e.g., C:\LLVM);
+- Add the LLVM bin directory to your system PATH (e.g., C:\LLVM\bin).
+
+```cmd
+clang++ --version
+
+    clang version 20.1.4
+    Target: aarch64-pc-windows-msvc
+    Thread model: posix
+    InstalledDir: C:\LLVM\bin
+```
+
+http://localhost:8888/lab/tree/week4/day3.ipynb

@@ -188,3 +188,4 @@ week4/simple
 .vscode/tasks.json
 **/*.webp
 **/*.mp3
+**/optimized*.exe
