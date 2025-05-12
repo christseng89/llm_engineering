@@ -602,3 +602,35 @@ clang++ --version
 ```
 
 http://localhost:8888/lab/tree/week4/day3.ipynb
+
+### Week 4 Day 4 - Open Source LLMs for Code Generation: Hugging Face Endpoints Explored
+#### Learning Objectives
+- Assess open-source models for coding ability
+- Use HuggingFace endpoints to deploy a model
+- Build a solution that uses open-source LLMs to generate code
+
+#### BUSINESS CHALLENGE - Reminder of the challenge
+Build a product that converts Python code to C++ for performance
+- At the last session we used GPT-40 and Claude
+- Both wrote the same optimized C++ code for a simple program to estimate pi. It ran 100 times faster.
+- With the harder problem, GPT-40 optimized the code for a 40X speedup, but 'Claude' rewrote the algorithm for a spectacular 60,000X gain!
+
+#### BigCode Leaderboard (Base only)
+https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard
+
+```note
+                     Model  humanEval-python   java  javascript    cpp    Win Rate
+1        Qwen2.5-Coder-32B             56.67  57.10       65.49  65.07       64.35
+2           CodeQwen1.5-7B             45.17  50.79       42.15  50.07       48.35
+3            CodeLlama-70b             43.21  52.44       44.72  56.52       49.69
+4  DeepSeek-Coder-33b-base             42.75  52.45       43.77  51.28       51.22
+...
+```
+
+https://huggingface.co/Qwen/CodeQwen1.5-7B-Chat 
+    Deploy -> HF Inference Endpoint -> AWS -> GPU -> Nvidia L4 -> Create endpoint
+
+https://huggingface.co/google/codegemma-7b-it
+    Deploy -> HF Inference Endpoint -> AWS -> GPU -> Nvidia L4 -> Create endpoint
+
+https://endpoints.huggingface.co/christseng89/endpoints/dedicated
