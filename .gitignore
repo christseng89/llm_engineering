@@ -189,3 +189,5 @@ week4/simple
 **/*.webp
 **/*.mp3
 **/optimized*.exe
+**/simple.exe
+**/optimized.cpp

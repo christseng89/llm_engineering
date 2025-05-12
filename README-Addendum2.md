@@ -630,7 +630,26 @@ https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard
 https://huggingface.co/Qwen/CodeQwen1.5-7B-Chat 
     Deploy -> HF Inference Endpoint -> AWS -> GPU -> Nvidia L4 -> Create endpoint
 
-https://huggingface.co/google/codegemma-7b-it
-    Deploy -> HF Inference Endpoint -> AWS -> GPU -> Nvidia L4 -> Create endpoint
-
 https://endpoints.huggingface.co/christseng89/endpoints/dedicated
+    1. Copy endpoint URL
+    2. Select codeqwen1-5-7b-chat-njo
+    3. Click on "Usage & Cost"
+https://endpoints.huggingface.co/christseng89/endpoints/codeqwen1-5-7b-chat-njo/usage
+
+http://localhost:8888/lab/tree/week4/day4.ipynb
+
+#### Test results
+- Claude
+    Total Maximum Subarray Sum (20 runs): 10980
+    Execution Time: 0.642780 seconds
+- GPT
+    Total Maximum Subarray Sum (20 runs): 10980
+    Execution Time: 0.646818 seconds
+- QWEN
+    Total Maximum Subarray Sum (20 runs): 14339 ***
+    Execution Time: 0.001246 seconds
+
+#### What you can now do
+- Code with Frontier Models including AI Assistants with Tools, and with open-source models with HuggingFace transformers
+- Confidently choose the right LLM for your project, backed by metrics
+- Use Frontier and open-source LLMs to generate code
