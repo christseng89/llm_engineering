@@ -43,8 +43,9 @@ def main():
     load_dotenv()
     os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY', 'your-key-if-not-using-env')
     os.environ['ANTHROPIC_API_KEY'] = os.getenv('ANTHROPIC_API_KEY', 'your-key-if-not-using-env')
-    os.environ['HF_TOKEN'] = os.getenv('HF_INF_TOKEN', 'your-key-if-not-using-env')
+    os.environ['HF_TOKEN'] = os.getenv('HUGGING_FACE_API_KEY', 'your-key-if-not-using-env')
 
+    print(os.environ['HF_TOKEN'])
     # get system messages
     system_message = get_system_message()
 

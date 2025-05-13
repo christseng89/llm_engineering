@@ -653,3 +653,68 @@ http://localhost:8888/lab/tree/week4/day4.ipynb
 - Code with Frontier Models including AI Assistants with Tools, and with open-source models with HuggingFace transformers
 - Confidently choose the right LLM for your project, backed by metrics
 - Use Frontier and open-source LLMs to generate code
+
+#### How to evaluate the performance of a Gen AI solution?
+This is perhaps the single most important question you will face
+
+- Model-centric or Technical Metrics
+    Loss (e.g., cross-entropy loss)
+    Perplexity
+    Accuracy
+    Precision, Recall, F1
+    AUC-ROC
+
+  Easiest to optimize with
+
+##### 模型導向或技術性指標
+📊 Model-centric / Technical Metrics
+這類指標聚焦於模型本身的品質與表現，通常在訓練與微調階段使用，方便優化：
+
+- Loss（損失函數）：如交叉熵損失(預測越接近真實答案，交叉熵就越小)，用於衡量模型預測與真實答案的差距
+- Perplexity（困惑度）：語言模型常用的衡量準確性的指標，數值越低越好
+- Accuracy（準確率）：整體預測正確的比例
+- Precision、Recall、F1 分數：常見於分類任務中，衡量準確性與召回率的綜合表現
+- AUC-ROC：用來評估二分類模型的表現品質
+
+🧠 這些是「最容易透過技術來優化」的部分，適合模型開發階段使用。
+
+##### 困惑度（Perplexity）
+
+| 模型版本        | 驗證集困惑度       | 表現       |
+| ----------- | ------------ | -------- |
+| 初版語言模型      | 150          | 很差（亂猜）   |
+| 微調後模型       | 30           | 普通       |
+| 強化後 GPT 類模型 | 7.8          | 很好       |
+| 人類語言預測平均值   | 約 1.5 \~ 2.0 | 極佳（接近完美） |
+
+- Business-centric or Outcome Metrics
+    KPIs tied to business objectives
+    ROI
+    Improvements in time, cost or resources
+    Customer satisfaction
+    Benchmark comparisons
+
+  Most tangible impact
+
+##### In our case we had simple business-centric metrics
+Performance of C++ solution with identical results
+- Claude-3.5-Sonnet is the winner, followed by GPT-40, followed by CodeQwen.
+- But remember that Qwen has 7B parameters; its closed-source cousins have more than 1T!
+- For everyday problems, Qwen is more than capable of converting Python to Optimized C++ code.
+
+#### Major challenges for you!
+For this high performance coding solution
+- Try adding Gemini to the Closed Source mix
+- Try more open-source models such as CodeLlama and StarCoder, and see if you can get CodeGemma to work
+
+3 new, exciting code generation ideas
+- A code tool that automatically adds docstring / comments
+- A code gen tool that writes unit test cases
+- A code generator that writes trading code to buy and sell equities in a simulated environment, based on a given API
+
+#### Writing Unit Tests
+- Jupyter Notebook w/o GPU and Qwen
+    http://localhost:8888/lab/tree/week4/community-contributions/day5.unit_testing_generator.ipynb
+
+- With Qwen to work with an A100 machine
+    https://colab.research.google.com/drive/1npQBxv3rcPtt2E35cnMqyBFwEd-gSL97#scrollTo=89be90c2-55ed-41e5-8123-e4f8ab965281
