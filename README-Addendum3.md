@@ -107,3 +107,31 @@ http://localhost:8888/lab/tree/week5/day1.ipynb
 - Typically have hundreds, or thousands of dimensions
 - Represent an 'understanding' of the inputs; similar inputs are close to each other
 - Support 'vector math' like the famous example: "King - Man + Woman = Queen"
+
+### Week 5 Day 2
+#### Learning Objectives
+- Describe the LangChain framework, with benefits and limitations
+- Use LangChain to read in a Knowledge Base of documents
+- Use LangChain to divide up documents into overlapping chunks
+
+#### INTRODUCING LangChain
+LangChain
+- OpenSource framework launched in October 2022
+- Provides a common framework for interfacing with many LLMs
+- Includes its own declarative language: LangChain Expression Language (LCEL)
+
+Pros & Cons
+- Greatly simplifies the creation of applications using LLMs (e.g. AI assistants, RAG, summarization) – fast time to market
+- Wrapper code around LLMs makes it easy to swap models
+- As APIs for LLMs have matured, converged and simplified, the need for a unifying framework like LangChain has decreased
+
+LLM vs LangChain 🔧 說白話一點：
+- LLM 是核心引擎，LangChain 是整台車的架構和自動駕駛系統。
+- 你可以只用引擎（呼叫 GPT API），但如果你要處理多文件、工具調用、多步推理、記憶、代理等複雜邏輯，就需要 LangChain 來幫你組織。
+
+#### We will now use LangChain to load our Knowledge Base
+- Read in the documents in all folders
+- Add meta-data to the documents
+- Break down the contents into overlapping chunks
+
+http://localhost:8888/lab/tree/week5/day2.ipynb
