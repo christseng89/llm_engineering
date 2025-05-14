@@ -5,8 +5,7 @@ jupyter lab
 ```
 ### Week 5 Day 1
 #### What is RAG
-**RAG** stands for **Retrieval-Augmented Generation**, a technique in natural language processing (NLP) that combines two components:
-
+**RAG** stands for **Retrieval-Augmented Generation (檢索增強生成)**. It is an advanced technique in natural language processing (NLP) that combines a language model (like GPT) with an external knowledge retrieval system, typically a vector database.
 ---
 
 ##### 🔍 **1. Retrieval:**
@@ -135,3 +134,42 @@ LLM vs LangChain 🔧 說白話一點：
 - Break down the contents into overlapping chunks
 
 http://localhost:8888/lab/tree/week5/day2.ipynb
+
+### Week 5 Day 3 (Vector DBs)
+#### Learning Objectives
+- Convert our chunks of text into Vectors using OpenAIEmbeddings
+- Store the Vectors in Chroma, one of the most popular open-source Vector datastores
+- Visualize and explore Vectors in a Chroma Vector Datastore in 2D and 3D
+
+#### Vector embedding models
+- word2vec (2013)
+- BERT (2018)
+- OpenAI Embeddings (2024 updates)
+
+#### Introducing Chroma 
+https://www.trychroma.com/
+
+Chroma is the open-source AI application database. Batteries included.
+    Embeddings, vector search, document storage, full-text search, metadata filtering, and multi-modal. All in one place. Retrieval that just works. As it should be.
+
+```cmd
+pip install -U langchain_chroma
+```
+
+http://localhost:8888/lab/tree/week5/day3.ipynb
+
+#### POPULATING THE VECTOR DATASTORE - This is where LangChain shines
+
+- Create the Chroma datastore and populate with Vector Embeddings of our Knowledge Base, in 2 lines of code.
+```code
+# 1 Use OpenAI Embeddings model
+embeddings = OpenAIEmbeddings()
+
+# 2 Create vectorstore
+vectorstore = Chroma.from_documents(
+    documents=chunks,
+    embedding=embeddings,
+    persist_directory=db_name
+)
+
+```
