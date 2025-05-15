@@ -212,3 +212,102 @@ conversation_chain = ConversationalRetrievalChain.from_llm(
 
 http://localhost:8888/lab/tree/week5/day4.ipynb # CHROMA
 http://localhost:8888/lab/tree/week5/day4.5.ipynb # FAISS
+
+### Week 5 Day 5
+#### LangChain Expression Language (LCEL)
+LCEL is a declarative language that can be used as an alternative to the code approach
+- Describe what you want to achieve in a YAML file
+- Arguably not much easier than coding directly
+
+```code
+variables:
+  - name: MODEL
+  - name: TEMPERATURE
+    default: 0.7
+  - name: PERSIST_DIRECTORY
+    default: 'vector_db'
+
+components:
+  - name: OpenAI_LLM
+    type: ChatOpenAI
+    parameters:
+      temperature: ${TEMPERATURE}
+      model_name: ${MODEL}
+
+  - name: ConversationMemory
+    type: ConversationBufferMemory
+    parameters:
+      memory_key: chat_history
+      return_messages: true
+
+  - name: OpenAIEmbeddings
+    type: OpenAIEmbeddings
+
+  - name: ChromaVectorStore
+    type: Chroma
+    parameters:
+      documents: ${chunks}
+      embedding: ${OpenAIEmbeddings}
+      persist_directory: ${PERSIST_DIRECTORY}
+
+  - name: VectorStoreRetriever
+    type: VectorStoreRetriever
+    parameters:
+      vectorstore: ${ChromaVectorStore}
+      search_kwargs:
+        k: 20
+
+  - name: ConversationalChain
+    type: ConversationalRetrievalChain
+    parameters:
+      llm: ${OpenAI_LLM}
+      retriever: ${VectorStoreRetriever}
+      memory: ${ConversationMemory}
+
+output:
+  - name: conversation_chain
+    from: ${ConversationalChain}
+
+```
+
+#### Behind the curtain
+Understanding how LangChain works, and identifying & fixing common problems
+
+🛠️ Topics:
+- Using Callbacks
+    To output prompt details
+    LangChain 允許你使用 callback（回呼）來觀察每一步在幹什麼，例如：模型收到什麼 prompt、產生什麼 output。
+    ```code
+    from langchain.callbacks import StdOutCallbackHandler
+
+    handler = StdOutCallbackHandler()
+    chain.invoke("你能解釋什麼是LLM嗎？", callbacks=[handler])
+
+    ```
+- Diagnosing a common problem
+    The right chunks are not being provided
+    大多數錯誤不是來自 LLM，而是來自「提供給模型的 chunk（資料片段）不對」。
+- Fixing the problem
+    Chunking differently; providing more chunks
+    使用更合適的 chunking 方法，例如：每段 500 字、或根據語意斷句（而不是固定字數）。
+    ```code
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=500,
+        chunk_overlap=50
+    )
+
+    ```
+- Demystifying LangChain
+    It's actually not hard to build RAG directly
+
+✅ 小結：
+    LangChain 很強大，但最常見的問題其實來自資料切片不對，或不理解內部是怎麼組合的。掌握 callback、chunk 設定、RAG 架構，就能有效除錯和優化。
+
+#### Advanced ideas to take it to the next level
+- If you use Google Workspace, use Google's API to read your own docs
+- If you use MS Office, use libraries to read Office docs
+- Harder - use libraries to connect to your email inbox, and Slack, and more!
+
+http://localhost:8888/lab/tree/week5/community-contributions/day5.markdown_llm_knowledge.ipynb
