@@ -173,3 +173,42 @@ vectorstore = Chroma.from_documents(
 )
 
 ```
+
+### Week 5 Day 4
+#### Learning Objectives
+- Create a Conversation Chain in LangChain for a chat conversation with retrieval
+- Ask questions and receive answers demonstrating expert knowledge
+- Build a Knowledge Worker assistant with chat UI
+
+#### Key Abstractions in LangChain
+- LLM
+- Retriever
+- Memory
+
+#### A Conversation Chain with RAG and Memory
+```code
+# 1 create a new Chat with OpenAI
+llm = ChatOpenAI(temperature=0.7, model_name=MODEL)
+
+# 2 set up the conversation memory for the chat
+memory = ConversationBufferMemory(
+    memory_key="chat_history", 
+    return_messages=True, 
+    input_key="question",      # ✅ user query
+    output_key="answer"        # ✅ model response
+)
+
+# 3 create a retriever from the Chroma datastore
+retriever = vectorstore.as_retriever()
+
+# 4 putting it together (LLM, Retriever, Memory)
+conversation_chain = ConversationalRetrievalChain.from_llm(
+    llm=llm,
+    retriever=retriever,
+    memory=memory,
+)
+
+```
+
+http://localhost:8888/lab/tree/week5/day4.ipynb # CHROMA
+http://localhost:8888/lab/tree/week5/day4.5.ipynb # FAISS
