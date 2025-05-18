@@ -310,4 +310,95 @@ Understanding how LangChain works, and identifying & fixing common problems
 - If you use MS Office, use libraries to read Office docs
 - Harder - use libraries to connect to your email inbox, and Slack, and more!
 
-http://localhost:8888/lab/tree/week5/community-contributions/day5.markdown_llm_knowledge.ipynb
+## Week 6 LoRA and QLoRA
+### Week 6 Day 1
+- Prerequisite
+  http://localhost:8888/lab/tree/week5/community-contributions/day5.markdown_llm_knowledge.ipynb
+
+#### Learning Objectives
+- Download a Dataset from the HuggingFace hub
+- Examine a dataset
+- Identify evaluation criteria for judging success
+
+#### So far we have focused exclusively on INFERENCE
+Techniques to improve results at run-time with Closed and Open-Source models
+
+- Multi-shot prompting
+- Prompt Chaining
+- Tools / Function calling
+- RAG / Knowledge Base
+
+#### This week we turn to TRAINING
+- Training a multi-billion parameter model from scratch would cost tens to hundreds of million $
+- Instead, we take advantage of 'Transfer Learning', 
+- We take a pretrained model as base, and use additional training data to fine-tune it for our task
+
+Transfer Learning
+  Take a pretrained model — one that has already learned useful representations from a large dataset — and 'fine-tune' it with your own, often smaller, dataset.
+
+#### A Juicy Commercial Problem
+Given a description of a product, predict its price
+- For a marketplace to estimate prices of goods
+- Future versions should be able to write and improve descriptions too
+- We'd typically use a Regression model to predict prices, but there are good reasons to try 'Gen AI'
+  - We can train an LLM and evaluate it very clearly
+  - It means we can battle with GPT-40
+  - Spoiler alert: the frontier models are already great at this!
+
+✅ 什麼是 Gen AI？
+Generative AI 是指能夠「生成內容」的 AI 模型，常見的例子包括：
+
+- 生成文字 → ChatGPT、Claude、Gemini
+- 生成圖片 → Stable Diffusion、DALL·E
+- 生成音訊 → TTS（text-to-speech）
+- 生成程式碼 → Code LLMs（如 CodeLlama、CodeGemma）
+
+這類模型是基於深度學習，特別是 Transformer 架構訓練出來的，可以 從 prompt 生成內容。例如：
+  - Prompt: "請幫我寫一篇商品描述，關於一款智能咖啡機。"
+  - Gen AI 就能自動生成描述內容。
+
+#### Finding datasets
+- Your own proprietary data
+- Kaggle
+- HuggingFace datasets
+- Synthetic data
+- Specialist companies like Scale.com
+
+#### HuggingFace datasets
+https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023
+https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023/tree/main/raw/meta_categories
+- Appliances
+
+#### Digging into the data
+We'll do some work
+
+- Investigate
+- Parse
+- Visualize
+- Assess Data Quality
+- Curate ***
+- Save
+
+http://localhost:8888/lab/tree/week6/day1.ipynb
+
+- MatPlotLib supported colors
+  https://matplotlib.org/stable/gallery/color/named_colors.html#base-colors
+
+#### How will we evaluate performance?
+From our Predicted Prices versus Actual Prices
+
+- Model-centric or Technical Metrics
+  - Training loss
+  - Validation loss
+  - Root Mean Squared Log Error (RMSLE)
+
+- Business-centric or Outcome Metrics
+  - Average price difference
+  - % price difference
+  - % estimates that are "good"/"bad"
+
+#### What you can now do
+- Generate text and code with Frontier Models including AI Assistants with Tools, and with open-source models with HuggingFace transformers
+- Confidently choose the right LLM for your project, backed by metrics
+- Create advanced RAG solutions with LangChain
+- Select, investigate and curate a Dataset
