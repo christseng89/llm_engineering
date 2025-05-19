@@ -402,3 +402,148 @@ From our Predicted Prices versus Actual Prices
 - Confidently choose the right LLM for your project, backed by metrics
 - Create advanced RAG solutions with LangChain
 - Select, investigate and curate a Dataset
+
+### Week 6 Day 2
+#### Learning Objectives
+- Lay out a 5 step strategy for selecting, training and applying an LLM
+- Contrast the 3 techniques for improving performance
+- Give common use cases for each of the techniques
+
+#### 5 Step Strategy
+To selecting, training and applying an LLM to a commercial problem
+
+- Understand
+- Prepare
+- Select (Model)
+- Customize (Training)
+- Production (Deployment) and Evaluate
+
+#### Customization Options:
+🧠 **Prompt** Engineering: Write a system prompt like:
+  “You are a helpful HR assistant for ACME Corp. Answer questions using ACME’s HR policy.”
+
+📚 **RAG**:
+  Load all ACME’s HR docs into a vector store (e.g. FAISS) and let the model retrieve context.
+
+🧬 **Fine-tune**:
+  Train on past HR inquiries + answers to improve accuracy in your tone & structure.
+
+##### First step Understand
+Activities:
+
+- Gather business requirements for the task
+- Identify performance criteria
+  - Particularly the Business Centric metrics
+- Understand the data: quantity, quality, format
+- Determine non-functional requirements
+  - Cost constraints, scalability, latency
+  - R&D / build budget and implementation timeline
+
+##### Second step Prepare
+Activities:
+
+- Research existing / **non-LLM** solutions
+  - Potential baseline model
+- Compare relevant LLMs
+  - The basics, including context length, price and license
+  - Benchmarks, **'Leaderboards'** and **'Arenas'**
+  - Specialist scores for the task at hand
+- Curate data: clean, preprocess and split
+  - **Train**, **Validation** and **Test** sets
+
+📘 Example Scenario:
+- Goal: Classify customer complaints by department (e.g. Billing, Support, Technical)
+
+  🔹 Non-LLM: Use a TF-IDF + SVM classifier (fast, interpretable)
+  🔹 LLM: Use GPT-4 with prompt tuning or fine-tuning
+
+💡 Why consider non-LLM first?
+- Faster to deploy – Often easier to build and test
+- Cheaper – No GPU, no token billing
+- Easier to explain – Rule-based or classical models can be more interpretable
+- Good enough – In many business cases, simple solutions already meet requirements
+
+##### Third step Select
+Activities:
+
+- Choose LLM(s)
+- Experiment
+- Train and validate with curated data
+
+##### Fourth step Customize
+3 techniques to optimize the performance of the model
+
+- Prompting
+  - multi-shot, chaining (Chain-of-Thought) and tools
+- RAG
+- Fine-tuning (Training)
+  - LoRA and QLoRA
+
+✅ Use Cases of Chaining
+| Task Type               | How Chaining Helps                       |
+| ----------------------- | ---------------------------------------- |
+| Math / logic puzzles    | Breaks into small steps                  |
+| Legal or policy QA      | Shows reasoning from rules to conclusion |
+| Programming / debugging | Walks through logic to suggest fixes     |
+| Business decisions      | Compares options with pros & cons        |
+
+###### 3 Techniques: Pros
+- Prompting
+  - Fast to implement
+  - Low cost
+  - Often immediate improvement
+- RAG
+  - Accuracy improvement with low data needs
+  - Scalable
+  - Efficient
+- Fine-tuning
+  - Deep expertise & specialist knowledge
+  - Nuance (更有「人味」、「情境感」、「禮貌性」，這就是 Nuance)
+  - Learn a different tone / style
+  - Faster and cheaper inference
+
+###### 3 Techniques: Cons
+- Prompting
+  - Limited by context length
+  - Diminishing returns
+  - Slower, more expensive inference
+- RAG
+  - Harder to implement
+  - Requires up-to-date, accurate data
+  - Lacks nuance
+- Fine-tuning
+  - Significant effort to implement
+  - High data needs
+  - Training cost
+  - Risk of "catastrophic forgetting"
+    - 當模型在學習新任務或新資料時，會突然「忘記」之前學過的重要知識。
+
+🛠️ 如何避免 Catastrophic Forgetting？
+| 方法                      | 說明                       |
+| ----------------------- | ------------------------ |
+| ✅ 使用 **LoRA / PEFT** 微調 | 保留原模型核心，覆蓋特定層，減少遺忘風險     |
+| ✅ **多任務**混合訓練           | 將原知識和新任務一起訓練             |
+| ✅ **Replay** 原始資料       | 在訓練時加入部分原始樣本防止模型「全然改變記憶」 |
+| ✅ 使用 **RAG** 替代 Fine-tuning | 用外部知識庫而不是修改模型參數本身        |
+
+###### 3 Techniques: Use Cases
+- Prompting
+  - Often the starting point for optimizing a project, with a Frontier LLM
+- RAG
+  - You need high accuracy without the cost of fine-tuning; you have a Knowledge Base
+- Fine-tuning
+  - You have a specialized task with a high volume of data (datasets), and you need top performance
+
+##### Fifth step Production
+Activities:
+
+- Determine API between model and platform(s)
+- Identify model hosting and deployment architecture
+- Address scaling, monitoring, security and compliance
+- Measure the Business-Focused Metrics identified in step 1
+- **Continuously** retrain and measure performance
+
+http://localhost:8888/lab/tree/week6/day2.lite.ipynb
+
+- http://localhost:8888/lab/tree/week6/items.py
+- http://localhost:8888/lab/tree/week6/loaders.py
