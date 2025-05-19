@@ -69,7 +69,7 @@ class ItemLoader:
         should work on loading and scrubbing the data
         """
         start = datetime.now()
-        print(f"Loading dataset {self.name}", flush=True)
+        print(f"\nLoading dataset {self.name}", flush=True)
         self.dataset = load_dataset("McAuley-Lab/Amazon-Reviews-2023", f"raw_meta_{self.name}", split="full", trust_remote_code=True)
         results = self.load_in_parallel(workers)
         finish = datetime.now()
