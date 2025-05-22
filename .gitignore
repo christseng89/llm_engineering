@@ -132,6 +132,8 @@ env.bak/
 venv.bak/
 llms/
 llms.bak/
+# wsl_venv/
+**venv/
 
 # Spyder project settings
 .spyderproject

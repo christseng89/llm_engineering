@@ -1,3 +1,9 @@
+#!/bin/bash
+
+# Optional: Update pip
+python3 -m pip install --upgrade pip
+
+# Install Python packages
 pip install python-dotenv
 pip install jupyterlab
 pip install ipywidgets
@@ -7,8 +13,7 @@ pip install pandas
 pip install scipy
 pip install scikit-learn
 pip install matplotlib
-@REM pip install gensim
-pip install --prefer-binary gensim
+pip install gensim
 pip install torch
 pip install transformers
 pip install tqdm
@@ -20,13 +25,11 @@ pip install faiss-cpu
 pip install langchain-openai
 pip install langchain_experimental
 pip install langchain_chroma
-pip install langchain[docarray]
+pip install "langchain[docarray]"
 pip install datasets
 pip install sentencepiece
-pip install matplotlib
 pip install google-generativeai
 pip install anthropic
-pip install scikit-learn
 pip install unstructured
 pip install chromadb
 pip install plotly
@@ -36,14 +39,9 @@ pip install pydub
 pip install modal
 pip install ollama
 pip install accelerate
-pip install sentencepiece
 pip install bitsandbytes
 pip install psutil
 pip install setuptools
 pip install speedtest-cli
-pip install sentence_transformers
+pip install sentence-transformers
 pip install feedparser
-pip install soundfile
-pip install hf_xet
-pip install llama-cpp-python
-pip install huggingface_hub

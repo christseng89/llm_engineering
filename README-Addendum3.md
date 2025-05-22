@@ -547,3 +547,8 @@ http://localhost:8888/lab/tree/week6/day2.lite.ipynb
 
 - http://localhost:8888/lab/tree/week6/items.py
 - http://localhost:8888/lab/tree/week6/loaders.py
+
+### Week 6 Day 3
+```cmd
+!pip install -q scipy>=1.6.0 gensim
+```
