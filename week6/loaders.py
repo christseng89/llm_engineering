@@ -3,8 +3,8 @@ from datetime import datetime
 from tqdm import tqdm
 from datasets import load_dataset, load_from_disk
 from concurrent.futures import ProcessPoolExecutor
-from typing import List
-from items import Item  # ✅ Import the full Item class
+from typing import List, Tuple
+from items import Item, save_chunk_to_disk, load_chunk_from_disk  # Do not modify this import
 
 
 CHUNK_SIZE = 1000
@@ -12,8 +12,47 @@ MIN_PRICE = 0.5
 MAX_PRICE = 999.49
 CACHE_DIR = "cache"
 
+
 def cache_path(name: str) -> str:
     return os.path.join(CACHE_DIR, f"{name}_dataset")
+
+
+def process_chunk_static(name: str, chunk_index: int, chunk) -> List[Item]:
+    """
+    Static-compatible chunk processor (for multiprocessing)
+    Shows messages when loading from disk or generating.
+    """
+    cached = load_chunk_from_disk(name, chunk_index)
+    if cached is not None:
+        print(f"📦 Loaded chunk {chunk_index} from disk ({name})", flush=True)
+        return cached
+
+    print(f"⚙️ Generating chunk {chunk_index} for {name}...", flush=True)
+    results = []
+    for dp in chunk:
+        try:
+            price_str = dp['price']
+            if price_str:
+                price = float(price_str)
+                if MIN_PRICE <= price <= MAX_PRICE:
+                    item = Item(dp, price)
+                    if item.include:
+                        item.category = name
+                        results.append(item)
+        except ValueError:
+            continue
+
+    save_chunk_to_disk(results, name, chunk_index)
+    print(f"💾 Saved chunk {chunk_index} to disk ({name})", flush=True)
+    return results
+
+
+def unpack_and_process_chunk(args: Tuple[str, int, list]) -> List[Item]:
+    """
+    Helper to unpack arguments for multiprocessing
+    """
+    return process_chunk_static(*args)
+
 
 class ItemLoader:
 
@@ -21,54 +60,34 @@ class ItemLoader:
         self.name = name
         self.dataset = None
 
-    def from_datapoint(self, datapoint) -> Item:
+    def chunk_generator(self) -> List[Tuple[int, list]]:
         """
-        Try to create an Item from this datapoint
-        Return the Item if successful, or None if it shouldn't be included
-        """        
-        try:
-            price_str = datapoint['price']
-            if price_str:
-                price = float(price_str)
-                if MIN_PRICE <= price <= MAX_PRICE:
-                    item = Item(datapoint, price)
-                    return item if item.include else None
-        except ValueError:
-            return None
-
-    def from_chunk(self, chunk) -> List[Item]:
+        Iterate over the Dataset, yielding (chunk_index, chunk)
         """
-        Create a list of Items from this chunk of elements from the Dataset
-        """
-        return [self.from_datapoint(dp) for dp in chunk if self.from_datapoint(dp)]
-
-    def chunk_generator(self):
-        """
-        Iterate over the Dataset, yielding chunks of datapoints at a time
-        """        
         size = len(self.dataset)
         for i in range(0, size, CHUNK_SIZE):
-            yield self.dataset.select(range(i, min(i + CHUNK_SIZE, size)))
+            chunk_index = i // CHUNK_SIZE
+            chunk = self.dataset.select(range(i, min(i + CHUNK_SIZE, size)))
+            yield (chunk_index, chunk)
 
     def load_in_parallel(self, workers: int) -> List[Item]:
         """
-        Use concurrent.futures to farm out the work to process chunks of datapoints -
-        This speeds up processing significantly, but will tie up your computer while it's doing so!
-        """        
+        Use concurrent.futures to process chunks of datapoints with parallelism
+        """
         results = []
-        chunk_count = (len(self.dataset) // CHUNK_SIZE) + 1
-        with ProcessPoolExecutor(max_workers=workers) as pool:
-            for batch in tqdm(pool.map(self.from_chunk, self.chunk_generator()), total=chunk_count):
+        chunk_data = [(self.name, idx, chunk) for idx, chunk in self.chunk_generator()]
+        chunk_count = len(chunk_data)
+
+        with ProcessPoolExecutor(max_workers=workers) as pool:   
+            for batch in tqdm(pool.map(unpack_and_process_chunk, chunk_data), total=chunk_count):
                 results.extend(batch)
-        for result in results:
-            result.category = self.name
         return results
 
     def load(self, workers: int = 8) -> List[Item]:
         """
         Load in this dataset; the workers parameter specifies how many processes
         should work on loading and scrubbing the data
-        """        
+        """
         start = datetime.now()
         print(f"\n🔍 Loading dataset: {self.name}", flush=True)
 

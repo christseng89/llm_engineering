@@ -548,7 +548,19 @@ http://localhost:8888/lab/tree/week6/day2.lite.ipynb
 - http://localhost:8888/lab/tree/week6/items.py
 - http://localhost:8888/lab/tree/week6/loaders.py
 
+📌 Summary of Curation Rules
+
+| Rule          | Condition                                                       |
+| ------------- | --------------------------------------------------------------- |
+| Price range   | 0.5 ≤ price ≤ 999.49                                            |
+| Text length   | ≥ 300 characters                                                |
+| Token count   | ≥ 150 tokens after processing                                   |
+| Content type  | Must include meaningful `description`, `features`, or `details` |
+| Noise removal | Removes known boilerplate and long numeric codes                |
+| Final format  | Generates a price-prediction prompt for LLM training            |
+
 ### Week 6 Day 3
 ```cmd
 !pip install -q scipy>=1.6.0 gensim
+
 ```

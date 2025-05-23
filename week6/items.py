@@ -131,4 +131,3 @@ def load_chunk_from_disk(category: str, chunk_index: int) -> Optional[list]:
         with open(path, "rb") as f:
             return pickle.load(f)
     return None
-
