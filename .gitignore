@@ -128,6 +128,8 @@ celerybeat.pid
 env/
 venv/
 ENV/
+cache/
+chunk_cache/
 env.bak/
 venv.bak/
 llms/

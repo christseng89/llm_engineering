@@ -1,24 +1,31 @@
+import os
+import pickle
 from typing import Optional
 from transformers import AutoTokenizer
 import re
 
 BASE_MODEL = "meta-llama/Meta-Llama-3.1-8B"
 
-MIN_TOKENS = 150 # Any less than this, and we don't have enough useful content
-MAX_TOKENS = 160 # Truncate after this many tokens. Then after adding in prompt text, we will get to around 180 tokens
+MIN_TOKENS = 150  # Any less than this, and we don't have enough useful content
+MAX_TOKENS = 160  # Truncate after this many tokens. Then after adding in prompt text, we will get to around 180 tokens
 
 MIN_CHARS = 300
 CEILING_CHARS = MAX_TOKENS * 7
+
+CHUNK_CACHE_DIR = "chunk_cache"  # Directory to store cached chunks
+
 
 class Item:
     """
     An Item is a cleaned, curated datapoint of a Product with a Price
     """
-    
+
     tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, trust_remote_code=True)
     PREFIX = "Price is $"
     QUESTION = "How much does this cost to the nearest dollar?"
-    REMOVALS = ['"Batteries Included?": "No"', '"Batteries Included?": "Yes"', '"Batteries Required?": "No"', '"Batteries Required?": "Yes"', "By Manufacturer", "Item", "Date First", "Package", ":", "Number of", "Best Sellers", "Number", "Product "]
+    REMOVALS = ['"Batteries Included?": "No"', '"Batteries Included?": "Yes"', '"Batteries Required?": "No"',
+                '"Batteries Required?": "Yes"', "By Manufacturer", "Item", "Date First", "Package", ":", "Number of",
+                "Best Sellers", "Number", "Product "]
 
     title: str
     price: float
@@ -48,11 +55,11 @@ class Item:
         Also remove words that are 7+ chars and contain numbers, as these are likely irrelevant product numbers
         """
         stuff = re.sub(r'[:\[\]"{}【】\s]+', ' ', stuff).strip()
-        stuff = stuff.replace(" ,", ",").replace(",,,",",").replace(",,",",")
+        stuff = stuff.replace(" ,", ",").replace(",,,", ",").replace(",,", ",")
         words = stuff.split(' ')
-        select = [word for word in words if len(word)<7 or not any(char.isdigit() for char in word)]
+        select = [word for word in words if len(word) < 7 or not any(char.isdigit() for char in word)]
         return " ".join(select)
-    
+
     def parse(self, data):
         """
         Parse this datapoint and if it fits within the allowed Token range,
@@ -96,3 +103,32 @@ class Item:
         Return a String version of this Item
         """
         return f"<{self.title} = ${self.price}>"
+
+
+def chunk_cache_path(category: str, chunk_index: int) -> str:
+    """
+    Construct the disk path for a given chunk
+    """
+    folder = os.path.join(CHUNK_CACHE_DIR, category)
+    os.makedirs(folder, exist_ok=True)
+    return os.path.join(folder, f"chunk_{chunk_index}.pkl")
+
+
+def save_chunk_to_disk(items: list, category: str, chunk_index: int):
+    """
+    Save a chunk of Items to disk
+    """
+    with open(chunk_cache_path(category, chunk_index), "wb") as f:
+        pickle.dump(items, f)
+
+
+def load_chunk_from_disk(category: str, chunk_index: int) -> Optional[list]:
+    """
+    Load a chunk of Items from disk if available
+    """
+    path = chunk_cache_path(category, chunk_index)
+    if os.path.exists(path):
+        with open(path, "rb") as f:
+            return pickle.load(f)
+    return None
+
