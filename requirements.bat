@@ -47,3 +47,4 @@ pip install soundfile
 pip install hf_xet
 pip install llama-cpp-python
 pip install huggingface_hub
+pip install diffusers

@@ -560,7 +560,21 @@ http://localhost:8888/lab/tree/week6/day2.lite.ipynb
 | Final format  | Generates a price-prediction prompt for LLM training            |
 
 ### Week 6 Day 3
-```cmd
-!pip install -q scipy>=1.6.0 gensim
+#### Learning Objectives
+- Explain the role of a baseline model
+- Create a traditional ML solution with features and linear regression
+- Apply more advanced NLP techniques including SVR (Support Vector Regression)
 
-```
+#### The importance of a Baseline
+- Start cheap and simple
+- Gives a benchmark to improve on
+- An LLM might not be the right solution
+
+#### Traditional ML models
+We will quickly set up these solutions to give us a starting point
+
+1. Feature engineering & Linear Regression
+2. Bag of Words & Linear Regression
+3. word2vec & Linear Regression
+4. word2vec & Random Forest
+5. word2vec & SVR
