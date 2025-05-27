@@ -597,3 +597,52 @@ http://localhost:8888/lab/tree/week6/day3.ipynb
 | **LLaMA 3 (70B)**    | Meta            | Open-weight large model, fine-tuned variants widely used |
 
 http://localhost:8888/lab/workspaces/auto-C/tree/week6/day4-results.ipynb
+
+### Week 6 Day 5
+#### Learning Objectives
+- Understand the process for Fine-Tuning a Frontier model
+- Create the fine-tuning dataset and run fine-tuning
+- Test a fine-tuned Frontier model
+#### Fine-tuning a Frontier model
+https://platform.openai.com/finetune/
+
+#### Three Stages to Fine-Tuning with OpenAI
+- Create **Training Dataset** in **jsonl** format and upload to OpenAI
+  https://platform.openai.com/storage/files
+- Run training – training loss and validation loss should decrease
+    1. https://wandb.ai => create an API key
+    2. https://platform.openai.com/account/organization => add Weights & Biases key from step 1 
+- Evaluate results, tweak and repeat
+  - https://wandb.ai/samfire5200-china-systems/gpt-pricer?nw=nwusersamfire5200
+
+OpenAI expects data in JSONL format, Rows of JSON each containing messages in the usual prompt format
+```code
+{"messages": [{"role": "system", "content": "You estimate prices..."}]}
+{"messages": [{"role": "system", "content": "You estimate prices..."}]}
+{"messages": [{"role": "system", "content": "You estimate prices..."}]}
+{"messages": [{"role": "system", "content": "You estimate prices..."}]}
+{"messages": [{"role": "system", "content": "You estimate prices..."}]}
+{"messages": [{"role": "system", "content": "You estimate prices..."}]}
+
+```
+
+#### Key Objectives of Fine-Tuning for Frontier models (Well Fine-tuned was disappointing!)
+- Setting style or tone in a way that can't be achieved with prompting
+- Improving the reliability of producing a type of output
+- Correcting failures to follow complex prompts
+- Handling edge cases
+- Performing a new skill or task that's hard to articulate in a prompt
+
+A problem like ours doesn't benefit significantly from Fine Tuning
+- The problem and style of output can be clearly specified in a prompt
+- The model can take advantage of its enormous world knowledge from its pre-training; providing a few hundred prices doesn't help
+
+✅ 無法透過 Prompt Engineering 解決的資料集或任務，才比較適合用 Fine-Tune 模型來處理。
+
+| 類型         | 適合 Prompt | 適合 Fine-Tune |
+| ---------- | --------- | ------------ |
+| 翻譯、摘要、文法修正 | ✅ 是       | ❌ 否（已學過）     |
+| 一般知識問答     | ✅ 是       | ❌ 無明顯效益      |
+| 應用情境變化大    | ❌ 難以穩定學習  | ✅ 視任務而定      |
+
+WEEK 6 **CHALLENGE** FOR YOU: Experiment with larger training sets and more prompt engineering and BEAT THE CURRENT BASELINE
