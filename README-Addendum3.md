@@ -646,3 +646,5 @@ A problem like ours doesn't benefit significantly from Fine Tuning
 | 應用情境變化大    | ❌ 難以穩定學習  | ✅ 視任務而定      |
 
 WEEK 6 **CHALLENGE** FOR YOU: Experiment with larger training sets and more prompt engineering and BEAT THE CURRENT BASELINE
+
+http://localhost:8888/lab/tree/week6/day5-results.ipynb
