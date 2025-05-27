@@ -578,3 +578,22 @@ We will quickly set up these solutions to give us a starting point
 3. word2vec & Linear Regression
 4. word2vec & Random Forest
 5. word2vec & SVR
+
+http://localhost:8888/lab/tree/week6/day3.ipynb
+
+### Week 6 Day 4 - Frontier Models
+#### Learning Objectives
+- Build a framework to solve a commercial problem using a Frontier model
+- Run our test dataset against GPT-4o-mini
+- Run our test dataset against Claude-3.5-Sonnet
+
+#### Example of Frontier Models
+| Model                | Organization    | Description                                              |
+| -------------------- | --------------- | -------------------------------------------------------- |
+| **GPT-4 / GPT-4o**   | OpenAI*         | Multimodal, high reasoning and task-solving ability      |
+| **Claude 3 Opus**    | Anthropic*      | Strong focus on alignment and reliability                |
+| **Gemini 1.5 Ultra** | Google DeepMind | Multimodal and long-context capabilities                 |
+| **Command R+**       | Cohere          | Retrieval-augmented generation (RAG) specialized         |
+| **LLaMA 3 (70B)**    | Meta            | Open-weight large model, fine-tuned variants widely used |
+
+http://localhost:8888/lab/workspaces/auto-C/tree/week6/day4-results.ipynb
