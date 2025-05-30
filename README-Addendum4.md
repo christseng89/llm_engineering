@@ -265,6 +265,7 @@ PeftModelForCausalLM(
 
 http://localhost:8888/lab/workspaces/auto-A/tree/week7/day1-loRA_sampleL4.ipynb
 http://localhost:8888/lab/workspaces/auto-A/tree/week7/day1-qlora_introL4.ipynb
+https://colab.research.google.com/drive/1q7vydcoKhTW06War4xIHc_xBTmj7KjtR
 
 #### Refer to Hugging Face Models
 - https://huggingface.co/ed-donner/pricer-2024-09-13_13.04.39/tree/main
@@ -275,3 +276,37 @@ http://localhost:8888/lab/workspaces/auto-A/tree/week7/day1-qlora_introL4.ipynb
 - 9,000 – Quantized to 8 bit
 - 5,600 – Quantized to 4 bit
 - 109 – QLoRA with r=32
+
+### Week 7 Day 2
+#### Learning Objectives
+- Select an open source model for fine tuning
+- Compare instruct and base variants for a task
+- Evaluate a base model against a business objective
+
+#### Which Model?
+Decisions to select our base model
+- **Number** of parameters
+- Llama vs Qwen vs Phi vs Gemma
+- **Base** or Instruct variants
+
+https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#
+
+✅ Selected Filters
+- Parameters
+    Slider range: 3 to 9
+- Model Type
+    Pretrained
+    Continuous Pretrained
+
+**Winner** => meta-llama/Llama-3.1-8B-Instruct (Open Source Model - Untrained...)
+https://colab.research.google.com/drive/1Udbqot29ZGTwKoOVSpwWr5cSpp_-74R0
+http://localhost:8888/lab/tree/week7/day2.basemodel_evaluationT4.ipynb
+
+#### Average prediction error from our models
+- Constant: $146
+- Features + LR: $139
+- Random Forest: $97
+- Human: $127
+- GPT-4o: $76 **Winner**
+- Llama 3.1 Base 8B 4-bit: $396
+- Llama 3.1 Base 8B 8-bit: $301
