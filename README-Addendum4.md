@@ -649,4 +649,17 @@ http://localhost:8888/lab/tree/week7/day3.finetune_trainingL4.ipynb
 #### Training Results on WandB
 https://wandb.ai/samfire5200-china-systems/pricer?nw=nwusersamfire5200
 - Project name:: pricer
-- Run name: 2025-05-30_08.33.19
+- Run name: **2025-05-30_08.33.19**
+
+https://huggingface.co/christseng898/pricer-2025-05-30_08.33.19/tree/main
+
+### Week 7 Day 4
+#### Learning Objectives
+- Monitor progress in Weights & Biases
+- See you model in the Hugging Face hub
+- Explain ways to train more quickly at lower cost
+
+#### Make Train and Test Datasets minimal by using 'Appliances' only (lite1-data dataset)
+http://localhost:8888/lab/tree/week7/day4.lite.ipynb
+https://huggingface.co/datasets/christseng898/lite1-data/tree/main
+https://huggingface.co/christseng898/pricer-2025-05-30_08.33.19/blob/main/adapter_config.json
