@@ -298,7 +298,7 @@ https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#
     Pretrained
     Continuous Pretrained
 
-**Winner** => meta-llama/Llama-3.1-8B-Instruct (Open Source Model - Untrained...)
+**Winner** => meta-llama/Llama-3.1-8B-Instruct (Open Source Model ONLY w/o LoRA or QLoRA...)
 https://colab.research.google.com/drive/1Udbqot29ZGTwKoOVSpwWr5cSpp_-74R0
 http://localhost:8888/lab/tree/week7/day2.basemodel_evaluationT4.ipynb
 
@@ -310,3 +310,343 @@ http://localhost:8888/lab/tree/week7/day2.basemodel_evaluationT4.ipynb
 - GPT-4o: $76 **Winner**
 - Llama 3.1 Base 8B 4-bit: $396
 - Llama 3.1 Base 8B 8-bit: $301
+
+### Week 7 Day 3 - Fine-Tuning Training with QLoRA
+#### Learning Objectives
+- Outline the major hyper-parameters used during training
+- Set up an Supervised Fine Tuning Trainer
+- Kick off training your own proprietary LLM!
+
+#### Five Important Hyper-parameters for QLoRA...
+- Target Modules
+- r
+- Alpha
+- Quantization
+- Dropout
+
+The **five important hyper-parameters for QLoRA** (Quantized Low-Rank Adaptation), with detailed explanations:
+
+---
+
+## 🔧 1. **Target Modules**
+
+* **What it is**: Specifies which layers in the base model you apply LoRA to.
+* **Common values**: `["q_proj", "v_proj"]`, `["gate_proj", "up_proj", "down_proj"]`
+* **Why it matters**: Only the specified modules will receive LoRA adaptation weights.
+* **How to choose**:
+
+  * For LLaMA/OPT: use `q_proj`, `v_proj`
+  * For Mistral/Baichuan: often include feedforward projections too.
+
+✅ **Tip**: **More modules** = higher accuracy but **more memory** use.
+
+---
+
+## 📉 2. **r (rank)**
+
+* **What it is**: The rank (dimensionality) of the low-rank matrices $A \cdot B$.
+* **Typical values**: `4`, `8`, `16`, `32`
+* **Why it matters**: Controls the capacity of the LoRA updates.
+* **Trade-off**:
+
+  * Higher `r` → better accuracy but more memory
+  * Lower `r` → lightweight but may underfit
+
+✅ **Tip**: Start with `r=8` or `r=16` for balanced performance.
+
+---
+
+## ⚖️ 3. **Alpha**
+
+* **What it is**: A scaling factor applied to the LoRA updates:
+
+  $$
+  \text{update} = \frac{\alpha}{r} \cdot (A \cdot B)
+  $$
+  
+* **Typical values**: `16`, `32`, `64`
+* **Why it matters**: Controls how strongly LoRA influences the final output.
+* **Effect**:
+
+  * Larger `alpha` → stronger impact of LoRA on prediction
+  * Too large → instability or overfitting
+
+✅ **Tip**: Use `alpha = 32` when `r = 8` (rule of thumb: `alpha = 4×r`)
+
+---
+
+## 📦 4. **Quantization**
+
+* **What it is**: Reduces the base model precision to save memory (e.g., from fp16 to 4-bit).
+* **QLoRA uses**: 4-bit quantization via `bitsandbytes`
+* **Types**:
+
+  * `nf4` (normal float 4): best for QLoRA
+  * `fp4`: sometimes used experimentally
+* **Why it matters**: Allows you to fine-tune huge models (13B–70B) on a single GPU.
+
+✅ **Tip**: Always use `bnb_4bit_compute_dtype=torch.bfloat16` if hardware supports it.
+
+---
+
+## 🌧️ 5. **Dropout**
+
+* **What it is**: Regularization that randomly disables part of the LoRA layers during training.
+* **Typical values**: `0.0` to `0.1`
+* **Why it matters**: Helps **prevent over-fitting**, especially when data is small.
+* **Applied to**: LoRA layers only (not the full model)
+
+✅ **Tip**: If your training set is large, set `dropout = 0.0`; otherwise use `0.05–0.1`
+
+---
+
+### 🧠 Summary Table
+
+| Hyperparameter   | Purpose                        | Recommended Values     |
+| ---------------- | ------------------------------ | ---------------------- |
+| `target_modules` | Select layers to apply LoRA    | `["q_proj", "v_proj"]` |
+| `r`              | LoRA rank                      | `8`, `16`, `32`        |
+| `alpha`          | LoRA update scale              | `2 x r `, `4 × r` (e.g., 32)     |
+| `quantization`   | Save memory with 4-bit weights | `nf4`, `fp4`           |
+| `dropout`        | LoRA-specific regularization   | `0.0`, `0.05`, `0.1`   |
+
+---
+
+📊 Alpha 差異總結
+
+| 設定                | 結果          | 使用時機               |
+| ----------------- | ----------- | ------------------ |
+| **alpha = 2 × r** | 較低影響、較穩定    | ✅ 小型資料集、避免過擬合      |
+| **alpha = 4 × r** | 較高影響、更強微調效果 | ✅ 中大型資料集、允許模型更自由學習 |
+
+#### ... and **Five** Important Hyper-parameters for Training (Fine-Tuning)
+- Epochs
+- Batch Size
+- Learning Rate
+- Gradient Accumulation
+- Optimizer
+
+These **five training hyperparameters** are foundational to training any deep learning model — including fine-tuning LLMs with LoRA or QLoRA. Here's a detailed explanation of each with **purpose and reasoning**:
+
+---
+
+## 🔁 1. **Epochs**
+
+### ✅ What it is:
+
+* **One epoch** = one full pass through the training dataset.
+
+### ✅ Why it's important:
+
+* Controls **how many times** the model sees each training example.
+* Too few → underfitting (model learns too little)
+* Too many → overfitting (model memorizes training data)
+
+### ✅ Rule of thumb:
+
+* Small datasets: 5–10 epochs
+* Medium datasets: 3–5
+* Large datasets: 1–3 (often sufficient with LoRA)
+
+---
+
+## 📦 2. **Batch Size**
+
+### ✅ What it is:
+
+* Number of samples processed before the model updates its weights once.
+
+### ✅ Why it's important:
+
+* Affects **GPU memory**, **training speed**, and **gradient stability**.
+* Small batch: better generalization, slower training
+* Large batch: faster training, needs **more memory**
+
+### ✅ Typical values:
+
+* LoRA/QLoRA on 16–24 GB GPU: `4`–`16`
+* Use **gradient accumulation** if memory is tight
+
+---
+
+## 🏃 3. **Learning Rate**
+
+### ✅ What it is:
+
+* Controls **how big each update step** is when minimizing loss.
+
+### ✅ Why it's important:
+
+* **Most sensitive hyperparameter** in training.
+* Too low → slow convergence
+* Too high → training diverges
+
+### ✅ Recommended starting points (LoRA):
+
+* `2e-4`, `3e-4`, or `1e-4`
+* QLoRA often uses smaller values like `5e-5` or `1e-5`
+
+---
+
+## ➕ 4. **Gradient Accumulation**
+
+### ✅ What it is:
+
+* Allows simulating a larger batch size by accumulating gradients over multiple smaller mini-batches before updating weights.
+
+### ✅ Why it's important:
+
+* Essential when **GPU memory is limited**.
+* For example:
+  With `batch_size=4` and `gradient_accumulation=8`, your **effective batch size = 32**.
+
+### ✅ Benefits:
+
+* Achieve larger batch effect without needing large VRAM.
+
+---
+
+## ⚙️ 5. **Optimizer**
+
+### ✅ What it is:
+
+* The algorithm used to adjust model weights during training.
+
+### ✅ Why it's important:
+
+* Affects **convergence speed**, **stability**, and **final performance**.
+
+### ✅ Common choices:
+
+| Optimizer   | Notes                                      |
+| ----------- | ------------------------------------------ |
+| `AdamW`     | Most commonly used for transformers        |
+| `SGD`       | Rarely used in NLP; slower and less stable |
+| `Adafactor` | Good for very large models (saves memory)  |
+
+---
+
+### 📊 Summary Table
+
+| Parameter               | What It Controls                    | Common Values           |
+| ----------------------- | ----------------------------------- | ----------------------- |
+| `Epochs`                | # of full passes over training data | 1–5                     |
+| `Batch Size`            | Samples per update step             | 4, 8, 16                |
+| `Learning Rate`         | Size of each update step            | 1e-5 to 3e-4            |
+| `Gradient Accumulation` | Simulates larger batch              | 4–16 (depending on GPU) |
+| `Optimizer`             | Weight update algorithm             | `AdamW`, `Adafactor`    |
+
+---
+
+Below is a **rule-of-thumb table** for selecting the **5 essential training hyperparameters** based on your **dataset size** and **available GPU RAM** (16GB vs 24GB). This table is designed for **LoRA / QLoRA fine-tuning** on LLMs using libraries like 🤗 Hugging Face + PEFT.
+
+---
+
+## ✅ Training Hyperparameter Recommendations
+
+| Dataset Size        | GPU RAM | Batch Size | Gradient Accum. | Epochs | Learning Rate    | Optimizer              |
+| ------------------- | ------- | ---------- | --------------- | ------ | ---------------- | ---------------------- |
+| 🔹 < 10,000 samples | 16 GB   | 4          | 4               | 5–8    | `3e-4` or `2e-4` | `AdamW`                |
+|                     | 24 GB   | 8–16       | 1–2             | 5–8    | `2e-4`           | `AdamW`                |
+| 🔹 10k–50k samples  | 16 GB   | 4          | 4–8             | 3–5    | `2e-4` or `1e-4` | `AdamW`                |
+|                     | 24 GB   | 8–16       | 1–2             | 3–5    | `1e-4`           | `AdamW`                |
+| 🔹 50k–100k samples | 16 GB   | 2–4        | 8–16            | 2–4    | `1e-4` or `5e-5` | `AdamW` or `Adafactor` |
+|                     | 24 GB   | 8          | 2–4             | 2–4    | `5e-5`           | `AdamW`                |
+| 🔹 > **100k samples**   | 16 GB   | 1–2        | 16–32           | 1–2    | `5e-5` or `1e-5` | `Adafactor`            |
+|                     | 24 GB   | 4–8        | 4–8             | 1–2    | `5e-5`           | `Adafactor`            |
+
+---
+
+## 🧠 Notes and Best Practices
+
+* **Batch Size**: Limited by VRAM. Use small values and increase `gradient_accumulation_steps` to simulate larger batches.
+* **Gradient Accumulation**: Critical when batch size is small. Keeps training stable.
+* **Epochs**: Smaller datasets require more epochs. Larger datasets usually need fewer.
+* **Learning Rate**:
+
+  * `3e-4` is aggressive (good for small datasets)
+  * `1e-4` is balanced
+  * `5e-5` or `1e-5` is conservative (safer for big models/datasets)
+* **Optimizer**:
+
+  * `AdamW`: standard for most fine-tuning tasks.
+  * `Adafactor`: saves memory, good for >10B models or long training.
+
+---
+
+### 🔧 Example: You have 16 GB GPU and 40k samples
+
+```python
+per_device_train_batch_size = 4
+gradient_accumulation_steps = 8
+num_train_epochs = 4
+learning_rate = 1e-4
+optimizer = "AdamW"
+```
+
+Based on your **Google Colab Pro-like setup** (with \~22.5 GB GPU RAM) and **100,000+ training samples**, here is the **recommended configuration for the 5 key training hyperparameters** for LoRA/QLoRA:
+
+---
+
+### ✅ **Environment Summary**
+
+| Resource         | Value        |
+| ---------------- | ------------ |
+| **GPU RAM**      | 22.5 GB      |
+| **System RAM**   | 53 GB        |
+| **Disk**         | 235 GB total |
+| **Dataset size** | 100k+ rows   |
+
+---
+
+## 🧪 Recommended Training Configuration
+
+| Parameter                 | Suggested Value  | Reason                                           |
+| ------------------------- | ---------------- | ------------------------------------------------ |
+| **Batch Size**            | `8`              | Fits in 22.5 GB with QLoRA (4-bit)               |
+| **Gradient Accumulation** | `4`              | Simulates effective batch size of 32             |
+| **Epochs**                | `2`              | Large dataset — overfitting risk increases if >3 |
+| **Learning Rate**         | `5e-5` or `1e-4` | Conservative; good for 100k+ tokens and QLoRA    |
+| **Optimizer**             | `AdamW`          | Standard, stable choice; good for LLMs           |
+
+---
+
+### 🔧 Hugging Face `TrainingArguments` Example
+
+```python
+from transformers import TrainingArguments
+
+training_args = TrainingArguments(
+    output_dir="./results",
+    per_device_train_batch_size=8,
+    gradient_accumulation_steps=4,
+    num_train_epochs=2,
+    learning_rate=5e-5,
+    optim="adamw_torch",
+    logging_steps=20,
+    save_strategy="epoch",
+    evaluation_strategy="epoch",
+    fp16=True,  # or bf16=True if supported
+    report_to="wandb",
+)
+```
+
+> If you're using QLoRA: add `load_in_4bit=True` in your model loading logic.
+
+---
+
+### 🧠 Notes:
+
+* You may increase `epochs` to 3 if loss continues improving.
+* Set `logging_dir='./logs'` if you want to visualize with TensorBoard.
+* `report_to="wandb"` is great if you're tracking experiments.
+
+---
+
+https://colab.research.google.com/drive/1W3YMOi4gZJwCH241RbZNeqVXoVAio0cy#scrollTo=fCwmDmkSATvj
+http://localhost:8888/lab/tree/week7/day3.finetune_trainingL4.ipynb
+
+#### Training Results on WandB
+https://wandb.ai/samfire5200-china-systems/pricer?nw=nwusersamfire5200
+- Project name:: pricer
+- Run name: 2025-05-30_08.33.19
