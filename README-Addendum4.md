@@ -663,3 +663,143 @@ https://huggingface.co/christseng898/pricer-2025-05-30_08.33.19/tree/main
 http://localhost:8888/lab/tree/week7/day4.lite.ipynb
 https://huggingface.co/datasets/christseng898/lite1-data/tree/main
 https://huggingface.co/christseng898/pricer-2025-05-30_08.33.19/blob/main/adapter_config.json
+
+### Week 7 Day 5 - Open Source with **Fine-Tuning Models**
+#### Learning Objectives
+- Explain how Training works
+- Run inference on a QLoRA fine-tuned model
+- Confidently carry out the end-to-end process for selecting and training open source models to solve a business problem
+
+**The Four Steps in Training**
+
+1. **Forward pass =>**
+   *Predict the next token in training data*
+
+2. **Loss calculation**
+   *How different was it to the true next token*
+
+3. **<= Backward pass**
+   *How much should we tweak parameters to do better next time (the "gradients")*
+
+4. **Optimization**
+   *Update parameters a tiny step to do better next time*
+
+Here is the extracted text from the image:
+
+---
+
+### **Next Token Prediction and Cross Entropy Loss**
+
+---
+
+#### **The Model Output**
+
+* The model doesn't simply **"Predict the next token"**
+* Rather, it outputs the **probabilities of all possible next tokens**
+  *This is the result of using the 'softmax' function over the output from the last layer*
+* During inference, you can pick the token with highest probability,
+  or sample from possible next tokens
+
+---
+
+#### **The Loss Function**
+
+* The approach for calculating loss is quite simple:
+
+  * Just ask: what probability did the model assign to the token that actually was the correct next token?
+  * In practice we then take the log of this probability and times by -1
+  * So 0 means we were 100% confident of the right result; higher numbers mean lower confidence
+
+* This is called **cross-entropy loss**
+
+當然可以！讓我們用簡單直觀的例子來解釋什麼是 **交叉熵（Cross-Entropy）**，以及它為什麼常用於語言模型的訓練中。
+
+---
+
+## 🔍 什麼是交叉熵？
+
+交叉熵是一種**衡量預測機率分佈與真實分佈差距的損失函數**。
+它回答的是：「模型對於實際正確答案的信心夠不夠高？」
+
+用一句話說：
+
+> **模型越確信正確答案，交叉熵損失就越小；越不確定，損失就越大。**
+
+---
+
+## 🎯 公式（簡化單一標籤情況）
+
+$$
+\text{CrossEntropy} = -\ln(p)
+$$
+
+其中 $p$ 是模型對正確類別預測的機率。
+如果模型認為正確答案的機率是 100%（即 $p = 1$），那麼損失為 0。
+如果模型非常不確定（例如 $p = 0.01$），損失就會很高。
+
+---
+
+## ✅ 實際例子（分類任務）
+
+### 📌 情境：
+
+我們讓模型預測「下一個字是什麼？」
+
+真實答案是「狗」這個詞。
+
+| 選項 | 模型預測機率 |
+| -- | ------ |
+| 狗  | 0.7    |
+| 貓  | 0.2    |
+| 鳥  | 0.1    |
+
+那交叉熵損失為：
+
+$$
+\text{Loss} = -\ln(0.7) \approx 0.357
+$$
+
+---
+
+### ❌ 如果模型預測錯很離譜呢？
+
+| 選項 | 模型預測機率 |
+| -- | ------ |
+| 狗  | 0.01   |
+| 貓  | 0.89   |
+| 鳥  | 0.1    |
+
+那交叉熵損失為：
+
+$$
+\text{Loss} = -\ln(0.01) \approx 4.605
+$$
+
+損失變大了，代表模型錯得很嚴重。
+
+---
+
+## 🧠 小結
+
+| 模型預測準確度 | 預測機率（對正確答案） | 交叉熵損失 |
+| ------- | ----------- | ----- |
+| 完全正確    | 1.0         | 0.000 |
+| 還不錯     | 0.7         | 0.357 |
+| 錯很遠     | 0.01        | 4.605 |
+
+---
+
+如你所見，交叉熵越小代表模型越「相信」正確答案，是語言模型、分類任務中最常見的損失函數。
+
+是否需要我用 PyTorch 或 TensorFlow 給你程式碼範例？
+
+https://colab.research.google.com/drive/1aLqmmzXtVtSP6rJDAG2j27FXI2lIZQrz
+http://localhost:8888/lab/tree/week7/day5.testing_our_fine_tunedL4.ipynb
+
+## FINAL RESULTS
+- Constant：$146
+- Features + LR：$139
+- Random Forest：$97
+- Human：$127
+- GPT-4o：$76
+- Fine-tuned：$47
