@@ -1,11 +1,12 @@
 from pydantic import BaseModel
-from typing import List, Dict, Self
+from typing import List, Dict #, Self # 適用於 Python < 3.11
 from bs4 import BeautifulSoup
 import re
 import feedparser
 from tqdm import tqdm
 import requests
 import time
+from typing_extensions import Self  # 適用於 Python < 3.11
 
 feeds = [
     "https://www.dealnews.com/c142/Electronics/?rss=1",

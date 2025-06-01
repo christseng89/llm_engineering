@@ -1,5 +1,3 @@
-import os
-import json
 from typing import Optional, List
 from openai import OpenAI
 from agents.deals import ScrapedDeal, DealSelection
@@ -75,6 +73,8 @@ class ScannerAgent(Agent):
         :return: a selection of good deals, or None if there aren't any
         """
         scraped = self.fetch_deals(memory)
+        self.log(f"Number of deals fetched{len(scraped)}")  # ← 加上這行
+        
         if scraped:
             user_prompt = self.make_user_prompt(scraped)
             self.log("Scanner Agent is calling OpenAI using Structured Output")

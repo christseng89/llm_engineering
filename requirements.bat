@@ -49,3 +49,5 @@ pip install llama-cpp-python
 pip install huggingface_hub
 pip install diffusers
 pip install wandb
+pip install typing_extensions
+pip install twilio

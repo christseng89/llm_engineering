@@ -1,6 +1,7 @@
 from typing import Optional, List
 from agents.agent import Agent
-from agents.deals import ScrapedDeal, DealSelection, Deal, Opportunity
+# from agents.deals import ScrapedDeal, DealSelection, Deal, Opportunity
+from agents.deals import Deal, Opportunity
 from agents.scanner_agent import ScannerAgent
 from agents.ensemble_agent import EnsembleAgent
 from agents.messaging_agent import MessagingAgent
