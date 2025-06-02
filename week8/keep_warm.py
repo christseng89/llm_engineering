@@ -8,3 +8,4 @@ while True:
     reply = pricer.wake_up.remote()
     print(f"{datetime.now()}: {reply}")
     time.sleep(30)
+    

@@ -1,5 +1,5 @@
 import modal
-from modal import App, Volume, Image
+from modal import Image
 
 # Setup - define our infrastructure with code!
 
@@ -12,11 +12,15 @@ secrets = [modal.Secret.from_name("hf-secret")]
 GPU = "T4"
 BASE_MODEL = "meta-llama/Meta-Llama-3.1-8B"
 PROJECT_NAME = "pricer"
-HF_USER = "ed-donner" # your HF name here! Or use mine if you just want to reproduce my results.
-RUN_NAME = "2024-09-13_13.04.39"
+# HF_USER = "ed-donner" # your HF name here! Or use mine if you just want to reproduce my results.
+# RUN_NAME = "2024-09-13_13.04.39"
+# REVISION = "e8d637df551603dc86cd7a1598a8f44af4d7ae36"
+HF_USER = "christseng898" # your HF name here! Or use mine if you just want to reproduce my results.
+RUN_NAME = "2025-05-30_08.33.19"
+REVISION = "05a42ef76a60d45f75ecdf0386be7c537b9aa098"
 PROJECT_RUN_NAME = f"{PROJECT_NAME}-{RUN_NAME}"
-REVISION = "e8d637df551603dc86cd7a1598a8f44af4d7ae36"
 FINETUNED_MODEL = f"{HF_USER}/{PROJECT_RUN_NAME}"
+
 MODEL_DIR = "hf-cache/"
 BASE_DIR = MODEL_DIR + BASE_MODEL
 FINETUNED_DIR = MODEL_DIR + FINETUNED_MODEL

@@ -1,6 +1,6 @@
 import gradio as gr
 from deal_agent_framework import DealAgentFramework
-from agents.deals import Opportunity, Deal
+# from agents.deals import Opportunity, Deal
 
 class App:
 

@@ -1,5 +1,5 @@
 import modal
-from modal import App, Volume, Image
+from modal import Image
 
 # Setup
 

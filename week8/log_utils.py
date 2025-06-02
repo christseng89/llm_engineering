@@ -32,4 +32,3 @@ def reformat(message):
     message = message.replace(RESET, '</span>')
     return message
     
-    
