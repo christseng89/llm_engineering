@@ -154,7 +154,7 @@ http://localhost:8888/lab/tree/week8/day1.ipynb
 - Using the Modal pricer-service
 http://localhost:8888/lab/tree/week8/agents/specialist_agent.py
     - **Pricer** 
-        - __init__ => modal.Cls.lookup("pricer-service", "Pricer"); self.pricer = Pricer()
+        - __init__ => modal.Cls.from_name("pricer-service", "Pricer"); self.pricer = Pricer()
         - **price** => self.pricer.price.remote(description)
 
 #### 💡「What you can now do（你現在可以做到的事）」的中文翻譯如下：
@@ -328,11 +328,21 @@ UI → Agent Framework → Planning Agent →
 
 ---
 
-http://localhost:8888/lab/tree/week8/day2.0.ipynb # Create a RAG vector database with our 100,000 training data
-http://localhost:8888/lab/tree/week8/day2.1.ipynb # Visualize in 2D (30,000 data points)
-http://localhost:8888/lab/tree/week8/day2.2.ipynb # Visualize in 3D (20,000 data points)
-http://localhost:8888/lab/tree/week8/day2.3.ipynb # Build and test a RAG pipeline with GPT-4o-mini and DeepSeek
-http://localhost:8888/lab/tree/week8/day2.4.ipynb # Build and test a RAG pipeline with Random Forest (sklearn)
+http://localhost:8888/lab/tree/week8/day2.0.ipynb 
+- Create a RAG vector database with our 100,000 training data
+http://localhost:8888/lab/tree/week8/day2.1.ipynb 
+- Visualize in 2D (30,000 data points) training data
+http://localhost:8888/lab/tree/week8/day2.2.ipynb 
+- Visualize in 3D (20,000 data points) training data
+http://localhost:8888/lab/tree/week8/day2.3.ipynb 
+- Build and test a RAG pipeline with GPT-4o-mini and DeepSeek test data
+  - http://localhost:8888/lab/tree/week8/agents/frontier_agent.py 
+    - **DeepSeek** or **GPT-4o-mini** for Frontier Agent
+  - http://localhost:8888/lab/tree/week8/agents/specialist_agent.py 
+    - **Modal** for Specialist Agent (**day1**.ipynb)
+http://localhost:8888/lab/tree/week8/day2.4.ipynb 
+- Build and test a RAG pipeline with Random Forest (sklearn) test data
+  - Saved model: week8/**random_forest_model.pkl**
 
 ✅ 如果你用的是 FAISS、Weaviate、Pinecone...
 | 向量庫          | 獲取紀錄筆數的方法                                  |
