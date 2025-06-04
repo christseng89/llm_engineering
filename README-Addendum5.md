@@ -294,15 +294,15 @@ http://localhost:8888/lab/tree/week8/agents/specialist_agent.py
   **中文：集成代理（彙總多模型價格預測）**
 
     * **Frontier Agent**4
-    📍 使用 RAG 架構進行估價 (frontier_agent.py)
+    📍 使用 RAG 架構進行估價 (frontier_agent.py - DeepSeek)
     **中文：前沿代理（使用 RAG 估價）**
 
     * **Specialist Agent**5
-    📍 專門估價的子代理之一 (specialist_agent.py)
+    📍 專門估價的子代理之一 (specialist_agent.py - modal)
     **中文：專家代理（專注於特定估價邏輯）**
 
     * **Random Forest Agent**6
-    📍 傳統機器學習模型（隨機森林）估價 (random_forest_agent.py)
+    📍 傳統機器學習模型（隨機森林）估價 (random_forest_agent.py - sklearn)
     **中文：隨機森林代理（傳統 ML 預測器）**
 
 ---
