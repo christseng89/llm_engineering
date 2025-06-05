@@ -1,6 +1,6 @@
 import os
 # from twilio.rest import Client
-from agents.deals import Opportunity
+from agents.deals_common import Opportunity
 import http.client
 import urllib
 from agents.agent import Agent

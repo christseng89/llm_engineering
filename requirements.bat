@@ -51,3 +51,5 @@ pip install diffusers
 pip install wandb
 pip install typing_extensions
 pip install twilio
+pip install asyncio
+pip install aiohttp

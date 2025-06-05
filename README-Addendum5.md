@@ -351,3 +351,17 @@ http://localhost:8888/lab/tree/week8/day2.4.ipynb
 | **FAISS**    | `len(vectorstore.index)`                                       |
 | **Weaviate** | 使用 `client.query.aggregate().with_meta_count()`                |
 | **Pinecone** | `index.describe_index_stats()` 回傳 dict 中的 `total_vector_count` |
+
+### Week 8 Day 3
+#### Learning Objectives
+- Use **Structured Outputs** to ensure frontier models respond with a spec
+- Develop even further experience using models to solve problems
+
+#### NEW SKILL - Structured Outputs
+
+- A new ability for Frontier Models
+- An alternative to JSON generation
+- Specify precisely how you want the model to reply
+- Define it with a Class
+- The model will create an instance of this Class
+- Useful for generating data in precisely a given format; sometimes tools / function-calling will be the better method

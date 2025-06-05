@@ -4,7 +4,7 @@ import threading
 import time
 import gradio as gr
 from deal_agent_framework import DealAgentFramework
-# from agents.deals import Opportunity, Deal
+
 from log_utils import reformat
 import plotly.graph_objects as go
 

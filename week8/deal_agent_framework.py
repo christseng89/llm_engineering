@@ -2,12 +2,11 @@ import os
 import sys
 import logging
 import json
-from typing import List, Optional
-from twilio.rest import Client
+
 from dotenv import load_dotenv
 import chromadb
 from agents.planning_agent import PlanningAgent
-from agents.deals import Opportunity
+from agents.deals_common import Opportunity
 from sklearn.manifold import TSNE
 import numpy as np
 

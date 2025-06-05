@@ -1,13 +1,14 @@
-from pydantic import BaseModel
 from typing import List, Dict #, Self # 適用於 Python < 3.11
 from bs4 import BeautifulSoup
-import re
 import feedparser
 from tqdm import tqdm
 import requests
 import time
 from typing_extensions import Self  # 適用於 Python < 3.11
+from bs4 import BeautifulSoup
+import re
 
+# 共用 RSS feeds
 feeds = [
     "https://www.dealnews.com/c142/Electronics/?rss=1",
     "https://www.dealnews.com/c39/Computers/?rss=1",
@@ -18,7 +19,7 @@ feeds = [
     "https://www.dealnews.com/c182/Office-School-Supplies/?rss=1",
     "https://www.dealnews.com/c178/Movies-Music-Books/?rss=1",
     "https://www.dealnews.com/c186/Gaming-Toys/?rss=1",
-       ]
+]
 
 def extract(html_snippet: str) -> str:
     """
@@ -26,7 +27,6 @@ def extract(html_snippet: str) -> str:
     """
     soup = BeautifulSoup(html_snippet, 'html.parser')
     snippet_div = soup.find('div', class_='snippet summary')
-    
     if snippet_div:
         description = snippet_div.get_text(strip=True)
         description = BeautifulSoup(description, 'html.parser').get_text()
@@ -89,26 +89,3 @@ class ScrapedDeal:
                 deals.append(cls(entry))
                 time.sleep(0.5)
         return deals
-
-class Deal(BaseModel):
-    """
-    A class to Represent a Deal with a summary description
-    """
-    product_description: str
-    price: float
-    url: str
-
-class DealSelection(BaseModel):
-    """
-    A class to Represent a list of Deals
-    """
-    deals: List[Deal]
-
-class Opportunity(BaseModel):
-    """
-    A class to represent a possible opportunity: a Deal where we estimate
-    it should cost more than it's being offered
-    """
-    deal: Deal
-    estimate: float
-    discount: float

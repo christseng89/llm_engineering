@@ -1,6 +1,7 @@
 from typing import Optional, List
 from openai import OpenAI
-from agents.deals import ScrapedDeal, DealSelection
+from agents.deals import ScrapedDeal
+from agents.deals_common import DealSelection
 from agents.agent import Agent
 
 
