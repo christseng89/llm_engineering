@@ -1,12 +1,11 @@
 from typing import Optional, List
 from openai import OpenAI
-from agents.deals import ScrapedDeal
-# from agents.deals_async import AsyncScrapedDeal
+from agents.deals_async import AsyncScrapedDeal
 from agents.deals_common import DealSelection
 from agents.agent import Agent
 
 
-class ScannerAgent(Agent):
+class ScannerAsyncAgent(Agent):
 
     MODEL = "gpt-4o-mini"
 
@@ -42,19 +41,19 @@ class ScannerAgent(Agent):
         """
         Set up this instance by initializing OpenAI
         """
-        self.show_progress = show_progress  # ✅ 加上這行        
+        self.show_progress = show_progress  # ✅ 加上這行
         self.log("Scanner Agent is initializing")
         self.openai = OpenAI()
         self.log("Scanner Agent is ready")
 
-    def fetch_deals(self, memory) -> List[ScrapedDeal]:
+    def fetch_deals(self, memory) -> List[AsyncScrapedDeal]:
         """
         Look up deals published on RSS feeds
         Return any new deals that are not already in the memory provided
         """
         self.log("Scanner Agent is about to fetch deals from RSS feed")
         urls = [opp.deal.url for opp in memory]
-        scraped = ScrapedDeal.fetch(show_progress=self.show_progress)
+        scraped = AsyncScrapedDeal.fetch(show_progress=self.show_progress)
         result = [scrape for scrape in scraped if scrape.url not in urls]
         self.log(f"Scanner Agent received {len(result)} deals not already scraped")
         return result

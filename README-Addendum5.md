@@ -365,3 +365,12 @@ http://localhost:8888/lab/tree/week8/day2.4.ipynb
 - Define it with a Class
 - The model will create an instance of this Class
 - Useful for generating data in precisely a given format; sometimes tools / function-calling will be the better method
+
+http://localhost:8888/lab/tree/week8/day3.ipynb 
+- Synchronous capture
+  - http://localhost:8888/lab/tree/week8/agents/deals.py
+  - http://localhost:8888/lab/tree/week8/agents/scanner_agent.py
+http://localhost:8888/lab/tree/week8/day3.async.ipynb 
+- Asynchronous capture
+  - http://localhost:8888/lab/tree/week8/agents/deals_async.py
+  - http://localhost:8888/lab/tree/week8/agents/scanner_async_agent.py

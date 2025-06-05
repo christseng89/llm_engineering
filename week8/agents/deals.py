@@ -1,3 +1,4 @@
+# Synchronous Deal Fetching
 from typing import List, Dict #, Self # 適用於 Python < 3.11
 from bs4 import BeautifulSoup
 import feedparser

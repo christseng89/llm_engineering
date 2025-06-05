@@ -1,5 +1,5 @@
-from deals import ScrapedDeal
-from deals_async import AsyncScrapedDeal
+from agents.deals import ScrapedDeal
+from agents.deals_async import AsyncScrapedDeal
 
 def test_sync():
     print("🔍 正在執行同步抓取...")
@@ -7,7 +7,7 @@ def test_sync():
     print(f"✅ 同步取得 {len(deals)} 筆資料")
 
 def test_async():
-    print("🔍 正在執行非同步抓取（包含快取邏輯）...")
+    print("🔍 正在執行非同步抓取...")
     async_deals = AsyncScrapedDeal.fetch(show_progress=True)  # ✅ 無需 await
     print(f"✅ 非同步取得 {len(async_deals)} 筆資料")
 

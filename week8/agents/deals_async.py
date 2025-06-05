@@ -1,17 +1,15 @@
+# Asynchronous Deal Fetching
 import asyncio
-import aiohttp
-
-from typing import List, Dict
-from bs4 import BeautifulSoup
 import feedparser
-from tqdm.asyncio import tqdm_asyncio
-from typing_extensions import Self  # 適用於 Python < 3.11
 from bs4 import BeautifulSoup
+from typing import List, Dict
+from typing_extensions import Self
 import re
+import aiohttp
+from tqdm.asyncio import tqdm_asyncio
+from agents.deals_common import Deal
 
-from deals import ScrapedDeal  # ✅ 加上這行
-
-# 共用 RSS feeds
+# ✅ 定義 RSS feeds 來源
 feeds = [
     "https://www.dealnews.com/c142/Electronics/?rss=1",
     "https://www.dealnews.com/c39/Computers/?rss=1",
@@ -24,22 +22,7 @@ feeds = [
     "https://www.dealnews.com/c186/Gaming-Toys/?rss=1",
 ]
 
-def extract(html_snippet: str) -> str:
-    """
-    Use Beautiful Soup to clean up this HTML snippet and extract useful text
-    """
-    soup = BeautifulSoup(html_snippet, 'html.parser')
-    snippet_div = soup.find('div', class_='snippet summary')
-    if snippet_div:
-        description = snippet_div.get_text(strip=True)
-        description = BeautifulSoup(description, 'html.parser').get_text()
-        description = re.sub('<[^<]+?>', '', description)
-        result = description.strip()
-    else:
-        result = html_snippet
-    return result.replace('\n', ' ')
-
-
+# ✅ 非同步處理類別
 class AsyncScrapedDeal:
     """
     An Async class to represent a Deal retrieved from an RSS feed
@@ -51,84 +34,97 @@ class AsyncScrapedDeal:
     details: str
     features: str
 
-    def __init__(self, entry: Dict[str, str], content: str):
-        """
-        Populate this instance based on the provided dict
-        """        
-        self.title = entry['title']
-        self.summary = extract(entry['summary'])
-        self.url = entry['links'][0]['href']
-        soup = BeautifulSoup(content, 'html.parser')
-        content = soup.find('div', class_='content-section')
-        content = content.get_text() if content else ""
-        content = content.replace('\nmore', '').replace('\n', ' ')
-        if "Features" in content:
-            self.details, self.features = content.split("Features", 1)
-        else:
-            self.details = content
-            self.features = ""
+    def __init__(self, title: str, summary: str, url: str, details: str, features: str):
+        self.title = title
+        self.summary = summary
+        self.url = url
+        self.details = details
+        self.features = features
 
-    def __repr__(self):
+        # Try to extract a price
+        match = re.search(r"\$(\d+[\.\d+]*)", self.title)
+        if match:
+            self.price = float(match.group(1))
+        else:
+            self.price = 0.0
+
+    def to_deal(self) -> Deal:
         """
-        Return a string to describe this deal
-        """        
-        return f"<{self.title}>"
+        Return a Deal object from the scraped info
+        """
+        return Deal(product_description=self.summary, price=self.price, url=self.url)
 
     def describe(self):
         """
         Return a longer string to describe this deal for use in calling a model
-        """        
+        """
         return f"Title: {self.title}\nDetails: {self.details.strip()}\nFeatures: {self.features.strip()}\nURL: {self.url}"
 
-class AsyncScrapedDeal(ScrapedDeal):
+    @classmethod
+    async def _fetch_html(cls, url: str) -> str:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                return await response.text()
+
+    @classmethod
+    async def from_entry(cls, entry: Dict[str, str]) -> Self:
+        title = entry['title']
+        summary = cls.extract(entry['summary'])
+        url = entry['links'][0]['href']
+
+        html = await cls._fetch_html(url)
+        soup = BeautifulSoup(html, 'html.parser')
+        content_div = soup.find('div', class_='content-section')
+        content = content_div.get_text() if content_div else ""
+        content = content.replace('\nmore', '').replace('\n', ' ')
+        if "Features" in content:
+            details, features = content.split("Features", 1)
+        else:
+            details = content
+            features = ""
+        return cls(title, summary, url, details, features)
+
+    @classmethod
+    async def _fetch_feed(cls, feed_url: str) -> List[Self]:
+        deals = []
+        feed = feedparser.parse(feed_url)
+        entries = feed.entries[:10]
+        for entry in entries:
+            deal = await cls.from_entry(entry)
+            deals.append(deal)
+            await asyncio.sleep(0.5)
+        return deals
 
     @classmethod
     async def fetch_async(cls, show_progress: bool = False) -> List[Self]:
         """
-        🔄 原始 async 實作，用來真正並行抓取資料
+        Retrieve all deals from the selected RSS feeds using asyncio
         """
-        deals = []
-        feed_iter = tqdm(feeds) if show_progress else feeds
-        async with aiohttp.ClientSession() as session:
-            tasks = [cls._fetch_feed(session, url) for url in feed_iter]
-            results = await asyncio.gather(*tasks)
-            for batch in results:
-                deals.extend(batch)
-        return deals
+        tasks = [cls._fetch_feed(url) for url in feeds]
+        if show_progress:
+            all_results = await tqdm_asyncio.gather(*tasks, desc="📦 Fetching All Feeds")
+        else:
+            all_results = await asyncio.gather(*tasks)
+        return [deal for sublist in all_results for deal in sublist]
 
     @classmethod
     def fetch(cls, show_progress: bool = False) -> List[Self]:
         """
-        ✅ 對外使用：同步函數，包裝 async 實作，支援直接呼叫
+        Wrapper to allow synchronous calling environment to still use async code
         """
         try:
             loop = asyncio.get_event_loop()
-            if loop.is_closed():
-                raise RuntimeError("Event loop is closed")
+            if loop.is_running():
+                raise RuntimeError("Event loop is already running")
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            loop = asyncio.get_event_loop()
 
-        return loop.run_until_complete(cls.fetch_async(show_progress=show_progress))    
+        return loop.run_until_complete(cls.fetch_async(show_progress=show_progress))
 
-    @classmethod
-    async def _fetch_feed(cls, feed_url: str) -> List[Self]:
-        feed = feedparser.parse(feed_url)
-        async with aiohttp.ClientSession() as session:
-            tasks = [cls._fetch_deal(session, entry) for entry in feed.entries[:10]]
-            results = await asyncio.gather(*tasks)
-            return [deal for deal in results if deal]
-
-    @classmethod
-    async def _fetch_deal(cls, session: aiohttp.ClientSession, entry: Dict[str, str]):
-        try:
-            # 🛡️ 檢查必要欄位，否則跳過
-            if 'title' not in entry or 'summary' not in entry or 'links' not in entry or not entry['links']:
-                return None
-            async with session.get(entry['links'][0]['href']) as resp:
-                content = await resp.text()
-                return cls(entry, content)
-        except Exception as e:
-            print(f"❌ Error fetching deal: {e}")
-            return None
+    @staticmethod
+    def extract(summary: str) -> str:
+        """
+        Clean and extract key parts from the summary
+        """
+        return summary.replace('\n', '').strip()
