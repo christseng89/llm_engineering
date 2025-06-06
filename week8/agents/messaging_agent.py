@@ -56,7 +56,8 @@ class MessagingAgent(Agent):
             "token": self.pushover_token,
             "user": self.pushover_user,
             "message": text,
-            "sound": "cashregister"
+            "sound": "cashregister",
+            "title": "llm_engineering"  # ← 加上這一行
           }), { "Content-type": "application/x-www-form-urlencoded" })
         conn.getresponse()
 

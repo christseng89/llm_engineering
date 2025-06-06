@@ -373,7 +373,7 @@ http://localhost:8888/lab/tree/week8/day3.ipynb
 http://localhost:8888/lab/tree/week8/day3.async.ipynb 
 - Asynchronous capture
   - http://localhost:8888/lab/tree/week8/agents/deals_async.py
-  - http://localhost:8888/lab/tree/week8/agents/scanner_async_agent.py
+  - http://localhost:8888/lab/tree/week8/agents/scanner_agent_async.py
 
 ### Week 8 Day 4
 #### Learning Objectives
@@ -464,3 +464,31 @@ AI Agent 不直接回答所有問題，而是：
 ---
 
 這是一個**典型的 Agentic AI 應用實例**，結合多個模組、工具與 Agent，實現自動化、智能化的客服體驗。
+
+https://pushover.net/
+  - PUSHOVER_USER=uvuq9thwa...
+  - PUSHOVER_TOKEN=aeuhfdmy82...
+
+http://localhost:8888/lab/tree/week8/day4.ipynb
+  - http://localhost:8888/lab/tree/week8/agents/messaging_agent.py
+  - http://localhost:8888/lab/tree/week8/agents/planning_agent.py
+
+http://localhost:8888/lab/tree/week8/day4.async.ipynb
+  - http://localhost:8888/lab/tree/week8/agents/messaging_agent.py
+  - http://localhost:8888/lab/tree/week8/agents/planning_agent_async.py  
+
+Install Pushover Notifications App on your mobile
+```bash
+curl -s \
+  --form-string "token=aeuhfdmy82..." \
+  --form-string "user=uvuq9thwa1nqtr..." \
+  --form-string "message=� 測試訊息 from llm_engineering" \
+  --form-string "title=llm_engineering" \
+  https://api.pushover.net/1/messages.json
+```
+
+```cmd
+cd week8
+py deal_agent_framework.py
+
+```

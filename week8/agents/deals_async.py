@@ -9,6 +9,9 @@ import aiohttp
 from tqdm.asyncio import tqdm_asyncio
 from agents.deals_common import Deal
 
+import nest_asyncio  # ✅ 加這行
+nest_asyncio.apply()  # ✅ 加這行
+
 # ✅ 定義 RSS feeds 來源
 feeds = [
     "https://www.dealnews.com/c142/Electronics/?rss=1",
@@ -44,9 +47,13 @@ class AsyncScrapedDeal:
         # Try to extract a price
         match = re.search(r"\$(\d+[\.\d+]*)", self.title)
         if match:
-            self.price = float(match.group(1))
+            try:
+                self.price = float(match.group(1))
+            except ValueError:
+                self.price = 0.0  # ⛔ 無法轉換為 float 則設為 0
         else:
             self.price = 0.0
+
 
     def to_deal(self) -> Deal:
         """
@@ -114,13 +121,16 @@ class AsyncScrapedDeal:
         """
         try:
             loop = asyncio.get_event_loop()
-            if loop.is_running():
-                raise RuntimeError("Event loop is already running")
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
 
-        return loop.run_until_complete(cls.fetch_async(show_progress=show_progress))
+        if loop.is_running():
+            # ✅ 如果事件迴圈已經在跑，使用 ensure_future 搭配 nest_asyncio
+            future = asyncio.ensure_future(cls.fetch_async(show_progress=show_progress))
+            return loop.run_until_complete(future)
+        else:
+            return loop.run_until_complete(cls.fetch_async(show_progress=show_progress))
 
     @staticmethod
     def extract(summary: str) -> str:

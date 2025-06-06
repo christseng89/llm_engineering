@@ -76,7 +76,7 @@ class ScannerAgent(Agent):
         :return: a selection of good deals, or None if there aren't any
         """
         scraped = self.fetch_deals(memory)
-        self.log(f"Number of deals fetched{len(scraped)}")  # ← 加上這行
+        self.log(f"Number of deals fetched {len(scraped)}")  # ← 加上這行
         
         if scraped:
             user_prompt = self.make_user_prompt(scraped)

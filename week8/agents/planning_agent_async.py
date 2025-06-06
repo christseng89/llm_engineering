@@ -2,12 +2,12 @@ from typing import Optional, List
 from agents.agent import Agent
 
 from agents.deals_common import Deal, Opportunity
-from agents.scanner_agent import ScannerAgent
+from agents.scanner_agent_async import ScannerAgentAsync 
 from agents.ensemble_agent import EnsembleAgent
 from agents.messaging_agent import MessagingAgent
 
 
-class PlanningAgent(Agent):
+class PlanningAgentAsync(Agent):
 
     name = "Planning Agent"
     color = Agent.GREEN
@@ -18,7 +18,7 @@ class PlanningAgent(Agent):
         Create instances of the 3 Agents that this planner coordinates across
         """
         self.log("Planning Agent is initializing")
-        self.scanner = ScannerAgent(show_progress=True)
+        self.scanner = ScannerAgentAsync(show_progress=True)
         self.ensemble = EnsembleAgent(collection)
         self.messenger = MessagingAgent()
         self.log("Planning Agent is ready")
@@ -35,7 +35,7 @@ class PlanningAgent(Agent):
         self.log(f"Planning Agent has processed a deal with discount ${discount:.2f}")
         return Opportunity(deal=deal, estimate=estimate, discount=discount)
 
-    def plan(self, memory: List[str] = []) -> Optional[Opportunity]:
+    async def plan(self, memory: List[str] = []) -> Optional[Opportunity]:
         """
         Run the full workflow:
         1. Use the ScannerAgent to find deals from RSS feeds
@@ -45,7 +45,7 @@ class PlanningAgent(Agent):
         :return: an Opportunity if one was surfaced, otherwise None
         """
         self.log("Planning Agent is kicking off a run")
-        selection = self.scanner.scan(memory=memory)
+        selection = await self.scanner.scan(memory=memory)
         if selection:
             opportunities = [self.run(deal) for deal in selection.deals[:5]]
             opportunities.sort(key=lambda opp: opp.discount, reverse=True)

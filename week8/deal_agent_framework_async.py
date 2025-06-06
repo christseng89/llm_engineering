@@ -5,13 +5,13 @@ import json
 
 from dotenv import load_dotenv
 import chromadb
-from agents.planning_agent import PlanningAgent
-# from agents.planning_agent_async import PlanningAgentAsync as PlanningAgent
+# from agents.planning_agent import PlanningAgent
+from agents.planning_agent_async import PlanningAgentAsync 
 from agents.deals_common import Opportunity
 from sklearn.manifold import TSNE
 import numpy as np
 from typing import List
-
+import asyncio
 
 # Colors for logging
 BG_BLUE = '\033[44m'
@@ -51,7 +51,7 @@ class DealAgentFramework:
     def init_agents_as_needed(self):
         if not self.planner:
             self.log("Initializing Agent Framework")
-            self.planner = PlanningAgent(self.collection)
+            self.planner = PlanningAgentAsync(self.collection)
             self.log("Agent Framework is ready")
         
     def read_memory(self) -> List[Opportunity]:
@@ -71,10 +71,10 @@ class DealAgentFramework:
         text = BG_BLUE + WHITE + "[Agent Framework] " + message + RESET
         logging.info(text)
 
-    def run(self) -> List[Opportunity]:
+    async def run(self) -> List[Opportunity]:
         self.init_agents_as_needed()
-        logging.info("Kicking off Planning Agent")
-        result = self.planner.plan(memory=self.memory)
+        self.log("Kicking off Planning Agent")
+        result = await self.planner.plan(memory=self.memory)
         logging.info(f"Planning Agent has completed and returned: {result}")
         if result:
             self.memory.append(result)
@@ -95,6 +95,5 @@ class DealAgentFramework:
         return documents, reduced_vectors, colors
 
 
-if __name__=="__main__":
-    DealAgentFramework().run()
-    
+if __name__ == "__main__":
+    asyncio.run(DealAgentFramework().run())

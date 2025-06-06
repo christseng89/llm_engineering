@@ -16,5 +16,14 @@
     },
     "estimate": 930.8824204895075,
     "discount": 225.88242048950747
+  },
+  {
+    "deal": {
+      "product_description": "The Samsung Galaxy S22 Ultra features a Qualcomm SM8450 octa-core Snapdragon processor and boasts a stunning 6.8\" 120Hz AMOLED 2X adaptive screen. This refurbished phone comes with a hefty 512GB of storage and 12GB of RAM, making it a powerhouse for multitasking and high-performance applications. With advanced camera capabilities and a sleek design, it's an excellent choice for anyone looking for a premium smartphone experience.",
+      "price": 334.0,
+      "url": "https://www.dealnews.com/products/Samsung/Unlocked-Samsung-Galaxy-S22-Ultra-512-GB-Phone/454156.html?iref=rss-c142"
+    },
+    "estimate": 1162.3599832467498,
+    "discount": 828.3599832467498
   }
 ]
