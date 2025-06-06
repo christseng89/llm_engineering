@@ -35,7 +35,7 @@ class PlanningAgentAsync(Agent):
         self.log(f"Planning Agent has processed a deal with discount ${discount:.2f}")
         return Opportunity(deal=deal, estimate=estimate, discount=discount)
 
-    async def plan(self, memory: List[str] = []) -> Optional[Opportunity]:
+    def plan(self, memory: List[str] = []) -> Optional[Opportunity]:
         """
         Run the full workflow:
         1. Use the ScannerAgent to find deals from RSS feeds
@@ -45,7 +45,7 @@ class PlanningAgentAsync(Agent):
         :return: an Opportunity if one was surfaced, otherwise None
         """
         self.log("Planning Agent is kicking off a run")
-        selection = await self.scanner.scan(memory=memory)
+        selection = self.scanner.scan(memory=memory)
         if selection:
             opportunities = [self.run(deal) for deal in selection.deals[:5]]
             opportunities.sort(key=lambda opp: opp.discount, reverse=True)
