@@ -26,7 +26,7 @@ feeds = [
 ]
 
 # ✅ 非同步處理類別
-class AsyncScrapedDeal:
+class ScrapedDealAsync:
     """
     An Async class to represent a Deal retrieved from an RSS feed
     """
@@ -119,18 +119,19 @@ class AsyncScrapedDeal:
         """
         Wrapper to allow synchronous calling environment to still use async code
         """
-        try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
+        return cls.fetch_async(show_progress=show_progress)
+        # try:
+        #     loop = asyncio.get_event_loop()
+        # except RuntimeError:
+        #     loop = asyncio.new_event_loop()
+        #     asyncio.set_event_loop(loop)
 
-        if loop.is_running():
-            # ✅ 如果事件迴圈已經在跑，使用 ensure_future 搭配 nest_asyncio
-            future = asyncio.ensure_future(cls.fetch_async(show_progress=show_progress))
-            return loop.run_until_complete(future)
-        else:
-            return loop.run_until_complete(cls.fetch_async(show_progress=show_progress))
+        # if loop.is_running():
+        #     # ✅ 如果事件迴圈已經在跑，使用 ensure_future 搭配 nest_asyncio
+        #     future = asyncio.ensure_future(cls.fetch_async(show_progress=show_progress))
+        #     return loop.run_until_complete(future)
+        # else:
+        #     return loop.run_until_complete(cls.fetch_async(show_progress=show_progress))
 
     @staticmethod
     def extract(summary: str) -> str:
