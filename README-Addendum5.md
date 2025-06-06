@@ -374,3 +374,93 @@ http://localhost:8888/lab/tree/week8/day3.async.ipynb
 - Asynchronous capture
   - http://localhost:8888/lab/tree/week8/agents/deals_async.py
   - http://localhost:8888/lab/tree/week8/agents/scanner_async_agent.py
+
+### Week 8 Day 4
+#### Learning Objectives
+Here is the text from the image:
+* Define Agent Frameworks, Agentic Workflows in more detail
+* Build an Agent Framework that sends push notifications with great deals
+
+#### The Hallmarks of an Agentic AI solution
+
+- Breaking a larger problem into smaller steps carried out by individual processes / models
+- Using Tools / Function Calling / Structured Outputs
+- An Agent Environment in which Agents can collaborate
+- A Planning Agent that coordinates activities
+- Autonomy & Memory – existing beyond a chat with a human
+
+#### Example Agentic AI solution
+是一個**Agentic AI 解決方案的真實案例** 所列的五個特徵：
+
+---
+
+### 🎯 **真實案例：AI 智慧客服系統（例如：電商平台的智慧客服）**
+
+---
+
+#### ✅ **1. 拆解大型問題為小任務（Breaking a larger problem into smaller steps）**
+
+當使用者詢問「我想查詢上週的訂單狀態並取消其中一筆」，這個複雜請求會被拆成：
+
+* 查找使用者的訂單
+* 篩選出上週的訂單
+* 顯示訂單狀態
+* 接收並執行取消請求
+
+每個步驟由不同的模組處理，確保準確性與可擴展性。
+
+---
+
+#### 🛠 **2. 使用工具/函式呼叫/結構化輸出（Using Tools / Function Calling / Structured Outputs）**
+
+AI Agent 不直接回答所有問題，而是：
+
+* 調用「訂單查詢 API」獲取資訊
+* 使用「取消訂單函式」處理指令
+* 輸出結構化 JSON 回應給前端，如：
+
+  ```json
+  { "order_id": "A123", "status": "cancelled" }
+  ```
+
+這樣有助於與系統整合，避免自由文字產生錯誤。
+
+---
+
+#### 🤝 **3. 多 Agent 協作環境（An Agent Environment in which Agents can collaborate）**
+
+此系統可能有多個 Agent：
+
+* **客服語言 Agent**：理解並分析語意
+* **訂單管理 Agent**：處理查詢與修改
+* **推薦商品 Agent**：根據取消原因推薦替代產品
+
+這些 Agent 在一個環境中協同合作，彼此溝通完成任務。
+
+---
+
+#### 🧠 **4. 有計畫的協調者（A Planning Agent that coordinates activities）**
+
+一個中央「規劃 Agent」根據對話上下文來決定：
+
+* 哪個子 Agent 需要被呼叫
+* 執行順序為何
+* 如何合併結果給使用者回應
+
+這就是像 Workflow Engine 或 LangGraph 的應用。
+
+---
+
+#### 🧠 **5. 擁有記憶與持續性（Autonomy & Memory - existing beyond a chat）**
+
+系統會記住：
+
+* 使用者的偏好（如付款方式、常購商品）
+* 過往的查詢紀錄與處理流程
+* 未完成的任務（如退款審核中）
+
+即使使用者隔天回來，也能接續處理。
+
+---
+
+這是一個**典型的 Agentic AI 應用實例**，結合多個模組、工具與 Agent，實現自動化、智能化的客服體驗。

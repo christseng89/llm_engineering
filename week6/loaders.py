@@ -6,16 +6,13 @@ from concurrent.futures import ProcessPoolExecutor
 from typing import List, Tuple
 from items import Item, save_chunk_to_disk, load_chunk_from_disk  # Do not modify this import
 
-
 CHUNK_SIZE = 1000
 MIN_PRICE = 0.5
 MAX_PRICE = 999.49
 CACHE_DIR = "cache"
 
-
 def cache_path(name: str) -> str:
     return os.path.join(CACHE_DIR, f"{name}_dataset")
-
 
 def process_chunk_static(name: str, chunk_index: int, chunk) -> List[Item]:
     """
@@ -46,19 +43,18 @@ def process_chunk_static(name: str, chunk_index: int, chunk) -> List[Item]:
     print(f"💾 Saved chunk {chunk_index} to disk ({name})", flush=True)
     return results
 
-
 def unpack_and_process_chunk(args: Tuple[str, int, list]) -> List[Item]:
     """
     Helper to unpack arguments for multiprocessing
     """
     return process_chunk_static(*args)
 
-
 class ItemLoader:
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, show_progress: bool = True):
         self.name = name
         self.dataset = None
+        self.show_progress = show_progress
 
     def chunk_generator(self) -> List[Tuple[int, list]]:
         """
@@ -78,8 +74,11 @@ class ItemLoader:
         chunk_data = [(self.name, idx, chunk) for idx, chunk in self.chunk_generator()]
         chunk_count = len(chunk_data)
 
-        with ProcessPoolExecutor(max_workers=workers) as pool:   
-            for batch in tqdm(pool.map(unpack_and_process_chunk, chunk_data), total=chunk_count):
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            mapped = pool.map(unpack_and_process_chunk, chunk_data)
+            if self.show_progress:
+                mapped = tqdm(mapped, total=chunk_count)
+            for batch in mapped:
                 results.extend(batch)
         return results
 
@@ -89,7 +88,7 @@ class ItemLoader:
         should work on loading and scrubbing the data
         """
         start = datetime.now()
-        print(f"\n🔍 Loading dataset: {self.name}", flush=True)
+        print(f"🔍 Loading dataset: {self.name}", flush=True)
 
         path = cache_path(self.name)
         if os.path.exists(path):
@@ -97,12 +96,26 @@ class ItemLoader:
             self.dataset = load_from_disk(path)
         else:
             print("⬇️ Downloading from Hugging Face Hub...", flush=True)
-            self.dataset = load_dataset(
-                "McAuley-Lab/Amazon-Reviews-2023",
-                f"raw_meta_{self.name}",
-                split="full",
-                trust_remote_code=True
-            )
+
+            # 🛡️ Retry logic for unstable download issues
+            for attempt in range(3):
+                try:
+                    self.dataset = load_dataset(
+                        "McAuley-Lab/Amazon-Reviews-2023",
+                        f"raw_meta_{self.name}",
+                        split="full",
+                        trust_remote_code=True
+                    )
+                    break  # ✅ Download succeeded
+                except Exception as e:
+                    print(f"⚠️ Attempt {attempt + 1} failed: {e}", flush=True)
+                    if attempt < 2:
+                        print("🔁 Retrying in 5 seconds...", flush=True)
+                        from time import sleep
+                        sleep(5)
+                    else:
+                        raise RuntimeError(f"❌ Failed to download dataset '{self.name}' after 3 attempts.") from e
+
             print(f"💾 Caching to: {path}", flush=True)
             os.makedirs(CACHE_DIR, exist_ok=True)
             self.dataset.save_to_disk(path)

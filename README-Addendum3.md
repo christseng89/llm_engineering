@@ -648,3 +648,7 @@ A problem like ours doesn't benefit significantly from Fine Tuning
 WEEK 6 **CHALLENGE** FOR YOU: Experiment with larger training sets and more prompt engineering and BEAT THE CURRENT BASELINE
 
 http://localhost:8888/lab/tree/week6/day5-results.ipynb
+
+## Finetune day2 with concurrent model to create datasets
+http://localhost:8888/lab/tree/week6/day2.lite1.ipynb
+- From 4 hours to 30 minutes
