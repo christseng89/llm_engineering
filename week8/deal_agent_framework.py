@@ -19,8 +19,32 @@ WHITE = '\033[37m'
 RESET = '\033[0m'
 
 # Colors for plot
-CATEGORIES = ['Appliances', 'Automotive', 'Cell_Phones_and_Accessories', 'Electronics','Musical_Instruments', 'Office_Products', 'Tools_and_Home_Improvement', 'Toys_and_Games']
-COLORS = ['red', 'blue', 'brown', 'orange', 'yellow', 'green' , 'purple', 'cyan']
+CATEGORIES = [
+    'Appliances',
+    'Automotive',
+    'Cell_Phones_and_Accessories',
+    'Electronics',
+    'Musical_Instruments',
+    'Office_Products',
+    'Tools_and_Home_Improvement',
+    'Toys_and_Games',
+    'Software',
+    'Health_and_Personal_Care'
+]
+
+# Assign unique and distinguishable colors to each category
+COLORS = [
+    'red',           # Appliances
+    'blue',          # Automotive
+    'brown',         # Cell_Phones_and_Accessories
+    'orange',        # Electronics
+    'yellow',        # Musical_Instruments
+    'green',         # Office_Products
+    'purple',        # Tools_and_Home_Improvement
+    'cyan',          # Toys_and_Games
+    'magenta',       # Software
+    'darkgreen'      # Health_and_Personal_Care
+]
 
 def init_logging():
     root = logging.getLogger()

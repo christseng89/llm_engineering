@@ -25,5 +25,14 @@
     },
     "estimate": 1162.3599832467498,
     "discount": 828.3599832467498
+  },
+  {
+    "deal": {
+      "product_description": "The Apple MacBook Air M3 is a powerful and sleek laptop featuring a 15.3\" Liquid Retina display that delivers stunning visuals. It is equipped with the M3 chip, including an 8-core CPU, along with 16GB of RAM and a 256GB SSD for efficient performance and storage capacity. This model is designed to handle a variety of tasks with impressive speed and efficiency, while maintaining a battery life of up to 18 hours, making it perfect for both work and leisure.",
+      "price": 899.0,
+      "url": "https://www.dealnews.com/products/Apple/Apple-Mac-Book-Air-M3-15-3-Laptop-w-16-GB-RAM-512-GB-SSD-2024/479518.html?iref=rss-c39"
+    },
+    "estimate": 1643.5192695524747,
+    "discount": 744.5192695524747
   }
 ]

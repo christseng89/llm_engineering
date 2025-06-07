@@ -367,13 +367,8 @@ http://localhost:8888/lab/tree/week8/day2.4.ipynb
 - Useful for generating data in precisely a given format; sometimes tools / function-calling will be the better method
 
 http://localhost:8888/lab/tree/week8/day3.ipynb 
-- Synchronous capture
   - http://localhost:8888/lab/tree/week8/agents/deals.py
   - http://localhost:8888/lab/tree/week8/agents/scanner_agent.py
-http://localhost:8888/lab/tree/week8/day3.async.ipynb 
-- Asynchronous capture
-  - http://localhost:8888/lab/tree/week8/agents/deals_async.py
-  - http://localhost:8888/lab/tree/week8/agents/scanner_agent_async.py
 
 ### Week 8 Day 4
 #### Learning Objectives
@@ -473,10 +468,6 @@ http://localhost:8888/lab/tree/week8/day4.ipynb
   - http://localhost:8888/lab/tree/week8/agents/messaging_agent.py
   - http://localhost:8888/lab/tree/week8/agents/planning_agent.py
 
-http://localhost:8888/lab/tree/week8/day4.async.ipynb
-  - http://localhost:8888/lab/tree/week8/agents/messaging_agent.py
-  - http://localhost:8888/lab/tree/week8/agents/planning_agent_async.py  
-
 Install Pushover Notifications App on your mobile
 ```bash
 curl -s \
@@ -490,5 +481,9 @@ curl -s \
 ```cmd
 cd week8
 py deal_agent_framework.py
+  ...
+  Planning Agent has completed and returned: deal=Deal(product_description=...)
+
+py price_is_right.py
 
 ```
