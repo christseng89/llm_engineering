@@ -92,7 +92,7 @@ class ItemLoader:
 
         path = cache_path(self.name)
         if os.path.exists(path):
-            print(f"✅ Loading from cache: {path}", flush=True)
+            print(f"📂 Loading from cache: {path}", flush=True)
             self.dataset = load_from_disk(path)
         else:
             print("⬇️ Downloading from Hugging Face Hub...", flush=True)
