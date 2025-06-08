@@ -16,7 +16,7 @@ CATEGORIES = [
     'Musical_Instruments',
     'Office_Products',
     'Tools_and_Home_Improvement',
-    # 'Toys_and_Games',
+    'Toys_and_Games',
     'Software',
     'Health_and_Personal_Care'
 ]

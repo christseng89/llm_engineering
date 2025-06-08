@@ -649,9 +649,9 @@ http://localhost:8888/lab/tree/week7/day3.finetune_trainingL4.ipynb
 #### Training Results on WandB
 https://wandb.ai/samfire5200-china-systems/pricer?nw=nwusersamfire5200
 - Project name:: pricer
-- Run name: **2025-06-07_09.00.36**
+- Run name: **2025-06-07_16.06.11**
 
-https://huggingface.co/christseng898/pricer-2025-06-07_09.00.36/tree/main
+https://huggingface.co/christseng898/pricer-2025-06-07_16.06.11/tree/main
 
 ### Week 7 Day 4
 #### Learning Objectives
@@ -662,7 +662,7 @@ https://huggingface.co/christseng898/pricer-2025-06-07_09.00.36/tree/main
 #### Make Train and Test Datasets minimal by using 'Appliances' only (lite1-data dataset)
 http://localhost:8888/lab/tree/week7/day4.lite.ipynb
 https://huggingface.co/datasets/christseng898/lite1-data/tree/main
-https://huggingface.co/christseng898/pricer-2025-06-07_09.00.36/blob/main/adapter_config.json
+https://huggingface.co/christseng898/pricer-2025-06-07_16.06.11/blob/main/adapter_config.json
 
 ### Week 7 Day 5 - Open Source with **Fine-Tuning Models**
 #### Learning Objectives
