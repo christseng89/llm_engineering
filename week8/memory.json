@@ -34,5 +34,68 @@
     },
     "estimate": 1643.5192695524747,
     "discount": 744.5192695524747
+  },
+  {
+    "deal": {
+      "product_description": "This ASUS Vivobook 14 is powered by a 13th-generation Intel Core i7-1355U CPU, providing powerful performance for various computing tasks. It sports a crisp 14-inch 1080p FHD display that delivers vivid visuals. With 12GB of RAM and a 512GB SSD, users can enjoy fast performance and ample storage. The device comes pre-installed with Windows 11 Home, ensuring users have the latest OS experience right out of the box.",
+      "price": 450.0,
+      "url": "https://www.dealnews.com/products/ASUS/ASUS-Vivobook-14-13-th-Gen-i7-14-Laptop-w-12-GB-RAM-and-512-GB-SSD/489605.html?iref=rss-c39"
+    },
+    "estimate": 848.7345989339768,
+    "discount": 398.7345989339768
+  },
+  {
+    "deal": {
+      "product_description": "The Unlocked Google Pixel Fold is a cutting-edge smartphone featuring a stunning 256GB of storage, launched in 2023. It is powered by the Google Tensor G2 chipset, which enhances performance and efficiency. This device supports split-screen multitasking, allowing users to run multiple apps simultaneously. Additionally, it is IPX8 water-resistant, providing protection against water immersion, while offering 12GB of RAM for smooth multitasking and an exceptional user experience. The smartphone ships with Android 13.0 and is compatible with most major carriers.",
+      "price": 600.0,
+      "url": "https://www.dealnews.com/products/Google/Unlocked-Google-Pixel-Fold-256-GB-Android-Smartphone/467718.html?iref=rss-c142"
+    },
+    "estimate": 949.7999575365444,
+    "discount": 349.7999575365444
+  },
+  {
+    "deal": {
+      "product_description": "The certified refurbished iRobot Roomba j7+ Self-Emptying Robot Vacuum is at the forefront of cleaning technology, featuring smart mapping and a self-cleaning cartridge filter, which helps in maintaining a clean floor without the hassle of emptying the dustbin. Known for its efficient cleaning capabilities, it effectively navigates around obstacles and can be controlled via a smartphone app. Ideal for busy households, this robot vacuum is also enhanced with a 2-year Allstate warranty for added peace of mind.",
+      "price": 175.0,
+      "url": "https://www.dealnews.com/products/iRobot/iRobot-Roomba-j7-Self-Emptying-Robot-Vacuum/455442.html?iref=rss-f1912"
+    },
+    "estimate": 481.9782072257334,
+    "discount": 306.9782072257334
+  },
+  {
+    "deal": {
+      "product_description": "The Samsung Galaxy Book4 is equipped with a 13th-generation Intel Core i7-1355U CPU, making it a powerful machine for both productivity and entertainment. With a 15.6-inch HD display, 16GB of RAM, and a 512GB SSD, it ensures smooth multitasking and quick load times. Running on Windows 11 Home, this device offers the latest features and security options for a modern computing experience.",
+      "price": 700.0,
+      "url": "https://www.dealnews.com/products/Samsung/Samsung-Galaxy-Book4-13-th-Gen-i7-15-6-Laptop/489036.html?iref=rss-c39"
+    },
+    "estimate": 995.4728417256832,
+    "discount": 295.4728417256832
+  },
+  {
+    "deal": {
+      "product_description": "The MSI Claw 1TB Handheld Gaming PC is designed for gamers looking for high performance in a portable format. It features an Intel Core Ultra 7 155H CPU, delivering robust processing power suitable for modern gaming needs. With a stunning 7\" 1080p touchscreen display and 16GB of RAM, you can expect smooth gameplay and vibrant graphics. Combined with a 1TB SSD for fast loading times, this gaming handheld aims to meet all your gaming and entertainment needs.",
+      "price": 639.0,
+      "url": "https://www.dealnews.com/products/MSI/MSI-Claw-1-TB-Handheld-Gaming-PC/490332.html?iref=rss-c39"
+    },
+    "estimate": 1000.6495979396695,
+    "discount": 361.64959793966955
+  },
+  {
+    "deal": {
+      "product_description": "The Motorola G 5G Android phone features 128GB of storage and a Snapdragon 4 Gen. 1 5G processor, providing ample power for smooth usage. It has a 6.5-inch display and comes with 4GB of RAM, along with a substantial 5,000mAh battery, ensuring you stay connected all day. This phone is perfect for users looking for performance on a budget.",
+      "price": 40.0,
+      "url": "https://www.dealnews.com/products/Motorola/Motorola-G-5-G-128-GB-Android-Phone-for-Straight-Talk/490381.html?iref=rss-c142"
+    },
+    "estimate": 246.5740201399264,
+    "discount": 206.5740201399264
+  },
+  {
+    "deal": {
+      "product_description": "The XFX Swift AMD Radeon RX 9060XT OC Gaming Edition Graphics Card is engineered for gaming enthusiasts who demand high performance. It comes with 8GB of video memory, providing the power needed to handle the latest games at high settings and resolutions. The card is designed for optimal thermal performance, featuring advanced cooling technology to maintain peak performance during intensive gaming sessions. Its sleek design is not only functional but also visually appealing for any gaming setup.",
+      "price": 300.0,
+      "url": "https://www.dealnews.com/products/XFX/XFX-Swift-AMD-Radeon-RX-9060-XT-OC-Gaming-Edition-8-GB-Graphics-Card/490359.html?iref=rss-c39"
+    },
+    "estimate": 399.2970950177093,
+    "discount": 99.2970950177093
   }
 ]

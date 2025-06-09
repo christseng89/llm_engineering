@@ -343,6 +343,11 @@ http://localhost:8888/lab/tree/week8/day2.3.ipynb
 http://localhost:8888/lab/tree/week8/day2.4.ipynb 
 - Build and test a RAG pipeline with Random Forest (sklearn) test data
   - Saved model: week8/**random_forest_model.pkl**
+- Finishing off with Random Forests & Ensemble
+  - Saved model: week8/**ensemble_model.pkl** with coefficients for each model
+    - Specialist: 0.34
+    - Frontier: -0.32
+    - RandomForest: -0.13
 
 ✅ 如果你用的是 FAISS、Weaviate、Pinecone...
 | 向量庫          | 獲取紀錄筆數的方法                                  |
@@ -369,6 +374,25 @@ http://localhost:8888/lab/tree/week8/day2.4.ipynb
 http://localhost:8888/lab/tree/week8/day3.ipynb 
   - http://localhost:8888/lab/tree/week8/agents/deals.py
   - http://localhost:8888/lab/tree/week8/agents/scanner_agent.py
+  - py test_deals.py
+    - This will run and print out the deals found
+  - py test_scanner_agent.py
+    - This will run the Scanner Agent (using gpt-4o-mini) and print out the deals found
+
+---
+
+### 🔄 **Main Difference in Return Values**
+
+| Aspect                  | `ScrapedDeal.fetch()` in `deals.py`          | `ScannerAgent.scan()` in `scanner_agent.py`                   |
+| ----------------------- | -------------------------------------------- | ------------------------------------------------------------- |
+| **Raw vs. Refined**     | Returns **raw scraped deals** from RSS feeds | Returns **refined top 5 deals**, chosen via LLM and filtered  |
+| **Uses AI Filtering**   | ❌ No                                         | ✅ Yes — OpenAI selects top deals with good details and price  |
+| **Output Type**         | `List[ScrapedDeal]`                          | `Optional[DealSelection]`                                     |
+| **Duplicate Filtering** | ❌ No                                         | ✅ Yes — filters out deals already in memory                   |
+| **Deal Quantity**       | Dozens or more per feed                      | Exactly 5 selected deals                                      |
+| **User Intent**         | For loading raw data                         | For getting high-quality deal suggestions to show or act upon |
+
+---
 
 ### Week 8 Day 4
 #### Learning Objectives
@@ -460,15 +484,12 @@ AI Agent 不直接回答所有問題，而是：
 
 這是一個**典型的 Agentic AI 應用實例**，結合多個模組、工具與 Agent，實現自動化、智能化的客服體驗。
 
-https://pushover.net/
+#### Messaging Agent with Pushover Notifications
+- https://pushover.net/
   - PUSHOVER_USER=uvuq9thwa...
   - PUSHOVER_TOKEN=aeuhfdmy82...
 
-http://localhost:8888/lab/tree/week8/day4.ipynb
-  - http://localhost:8888/lab/tree/week8/agents/messaging_agent.py
-  - http://localhost:8888/lab/tree/week8/agents/planning_agent.py
-
-Install Pushover Notifications App on your mobile
+- Install Pushover Notifications App on your mobile
 ```bash
 curl -s \
   --form-string "token=aeuhfdmy82..." \
@@ -477,6 +498,12 @@ curl -s \
   --form-string "title=llm_engineering" \
   https://api.pushover.net/1/messages.json
 ```
+
+#### Message Agent & Planning Agent
+http://localhost:8888/lab/tree/week8/day4.ipynb
+  - Messaging Agent (Pushover) => http://localhost:8888/lab/tree/week8/agents/messaging_agent.py
+  - Planning Agent => http://localhost:8888/lab/tree/week8/agents/planning_agent.py
+    - py test_planner.py
 
 ```cmd
 cd week8
@@ -487,3 +514,77 @@ py deal_agent_framework.py
 py price_is_right.py
 
 ```
+
+#### 🔁 Agent Workflows（代理人工作流程）
+
+### 1. **The UI** （介面）
+
+* **In Gradio**
+* 提供使用者與系統互動的前端介面。
+
+### 2. **The Agent Framework** (deal_agent_framework.py)
+
+* **Memory, logging**
+* 管理系統記憶與日誌紀錄。 (memory.json)
+
+### 3. **Planning Agent** (planning_agent.py)
+
+* **Coordinates activities**
+* 負責協調整個流程中各代理人的執行順序與依賴關係。
+
+---
+
+### 4. **Scanner Agent** (scanner_agent.py)
+
+* **Identifies promising deals**
+* 使用 AI 篩選出具有潛力的商品優惠。
+
+---
+
+### 5. **Ensemble Agent** (ensemble_agent.py)
+
+* **Estimates prices**
+* 使用集成模型估算每個商品的價格。
+
+---
+
+### 6. **Messaging Agent** (messaging_agent.py)
+
+* **Sends push notifications**
+* 傳送通知，例如推播或電郵。
+
+---
+
+### 7. **Frontier Agent** (frontier_agent.py)
+
+* **RAG pricer**
+* 使用 RAG（Retrieval-Augmented Generation）估價器進行價格推理。
+
+---
+
+### 8. **Specialist Agent** (specialist_agent.py)
+
+* **Estimates prices**
+* 專家模型，可能針對特定類別商品進行更細緻的價格評估。
+
+---
+
+### 9. **Random Forest Agent** (random_forest_agent.py)
+
+* **Estimates prices**
+* 使用隨機森林模型作為其中一種價格預測方法。
+
+---
+
+🧠 中文說明：各代理人功能與流程
+| 步驟 | 代理人名稱                   | 功能說明                                            |
+| -- | ----------------------- | ----------------------------------------------- |
+| ①  | **UI**（介面）              | 使用者透過 Gradio 介面啟動流程                             |
+| ②  | **Agent Framework**     | 初始化記憶體、日誌系統與向量儲存                                |
+| ③  | **Planning Agent**      | 負責協調執行各代理人順序與任務                                 |
+| ④  | **Scanner Agent**       | 從 RSS feeds 中使用 GPT 模型篩選出「具描述性 + 有價格」的 top 5 商品 |
+| ⑤  | **Ensemble Agent**      | 負責呼叫多個價格模型代理人，合併不同模型的估價結果                       |
+| ⑥  | **Frontier Agent**      | 使用 RAG 模型（檢索增強生成）對商品進行語意推論價格                    |
+| ⑦  | **Specialist Agent**    | 對特定類別（如電子、玩具）進行更精細估價                            |
+| ⑧  | **Random Forest Agent** | 應用 ML 的 RF 模型作為傳統數值預測方法                         |
+| ⑨  | **Messaging Agent**     | 將最終結果通知使用者，發送 email、push 等通知                    |

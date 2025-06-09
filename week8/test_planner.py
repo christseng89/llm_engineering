@@ -7,7 +7,8 @@ DB = "products_vectorstore"
 
 client = chromadb.PersistentClient(path=DB)
 collection = client.get_or_create_collection('products')
-print (f"Get Collection '{collection.name}'. ")
+print (f"Get collection '{collection.name}'. ")
 planner = PlanningAgent(collection)
-print ("Created PlanningAgent. ")
-planner.plan()
+print ("Created planningAgent, please wait...")
+result = planner.plan()
+print (f"Planning completed with result: {result}. ")
