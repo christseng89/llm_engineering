@@ -652,3 +652,10 @@ http://localhost:8888/lab/tree/week6/day5-results.ipynb
 ## Finetune day2 with concurrent model to create datasets
 http://localhost:8888/lab/tree/week6/day2.lite1.ipynb
 - From 4 hours to 30 minutes
+
+#### Convert md to word
+- cd week5\community-contributions
+- py convert_md_to_word.py
+
+#### Agentic AI project Q&A
+- http://localhost:8888/lab/tree/week5/community-contributions/day5.markdown_llm_kw_word.ipynb

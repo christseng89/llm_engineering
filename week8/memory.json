@@ -97,5 +97,68 @@
     },
     "estimate": 399.2970950177093,
     "discount": 99.2970950177093
+  },
+  {
+    "deal": {
+      "product_description": "The Jamo S 83 Center Channel Speaker delivers high-fidelity sound and enhances your home theater experience. Its compact design fits seamlessly with your existing setup while providing clear dialogue and immersive audio. This speaker is engineered for quality, ensuring you enjoy an immersive sound experience whether you're watching movies or listening to music. A must-have for any audiophile or movie enthusiast.",
+      "price": 49.0,
+      "url": "https://www.dealnews.com/products/Jamo/Jamo-S-83-Center-Channel-Speaker/490376.html?iref=rss-c142"
+    },
+    "estimate": 213.72694596268497,
+    "discount": 164.72694596268497
+  },
+  {
+    "deal": {
+      "product_description": "The Samsung 7.5-Cubic Foot Smart Electric Dryer comes equipped with advanced features like Steam Sanitize+ and Sensor Dry, making laundry day easier and more efficient. This dryer ensures your clothes come out wrinkle-free and sanitized, thanks to its steam technology. The smart capabilities allow you to control and monitor the dryer remotely through a mobile app, providing added convenience to your daily laundry routine.",
+      "price": 849.0,
+      "url": "https://www.dealnews.com/products/Samsung/7-5-Cubic-Foot-Smart-Electric-Dryer-with-Steam-Sanitize-and-Sensor-Dry/490227.html?iref=rss-f1912"
+    },
+    "estimate": 916.0028770753979,
+    "discount": 67.00287707539792
+  },
+  {
+    "deal": {
+      "product_description": "The Polti Vaporetto Corded Smart Mop Electric Steam Cleaner is a versatile cleaning tool featuring 12 multi-purpose attachments, ensuring thorough cleaning across different surfaces. With adjustable steam control and a 156-inch power cord, this cleaner is designed for ease of use. Perfect for maintaining a clean and sanitary home, it combines efficiency with power, making it an invaluable addition to your cleaning arsenal.",
+      "price": 80.0,
+      "url": "https://www.dealnews.com/products/Polti-Vaporetto-Corded-Smart-Mop-Electric-Steam-Cleaner/489869.html?iref=rss-f1912"
+    },
+    "estimate": 234.35764121487023,
+    "discount": 154.35764121487023
+  },
+  {
+    "deal": {
+      "product_description": "The Dell Inspiron 15 3530 is powered by a 13th Generation Intel Core i5 processor with 15.6-inch 1080p display, offering a great resolution for a wide range of tasks. With 8GB of RAM and a spacious 512GB NVMe M.2 SSD, this laptop is perfect for both everyday computing and more intensive applications. Pre-installed with Windows 11 Pro, it ensures a smooth and user-friendly experience for all users.",
+      "price": 460.0,
+      "url": "https://www.dealnews.com/Dell-Inspiron-15-3530-13-th-Gen-i5-15-6-Laptop-w-512-GB-SSD-for-460-free-shipping/21742138.html?iref=rss-c39"
+    },
+    "estimate": 546.8263830174826,
+    "discount": 86.82638301748261
+  },
+  {
+    "deal": {
+      "product_description": "The Samsung Bespoke Jet Bot Combo Robot Vacuum & Mop redefines convenience with its advanced LiDAR navigation and 3D mapping capabilities for smart cleaning. Equipped with an All-in-One Clean Station, it automatically washes itself, making maintenance hassle-free. This robot vacuum is compatible with smart home systems such as Amazon Alexa and Google Assistant, allowing you to control it effortlessly via voice commands. With its sleek design and powerful suction, it effectively tackles various types of surfaces, ensuring a thorough clean throughout your home.",
+      "price": 750.0,
+      "url": "https://www.dealnews.com/products/Samsung/Samsung-Bespoke-Jet-Bot-Combo-Robot-Vacuum-Mop-w-All-in-One-Clean-Station/490288.html?iref=rss-f1912"
+    },
+    "estimate": 981.6802458563876,
+    "discount": 231.68024585638761
+  },
+  {
+    "deal": {
+      "product_description": "The Certified Refurbished Samsung Galaxy S24 Android Smartphone is an excellent option for those seeking high-performance and reliability at a lower price point. These devices, which have undergone thorough testing and refurbishing, deliver the same quality and features as new smartphones but at a significantly reduced cost. Many models are available, making it easy to find one that fits your needs, while still benefiting from modern technology and design.",
+      "price": 182.0,
+      "url": "https://www.dealnews.com/Certified-Refurb-Samsung-Galaxy-S24-Android-Smartphones-Up-to-617-off-w-trade-free-shipping/21741077.html?iref=rss-c142"
+    },
+    "estimate": 250.89044636692336,
+    "discount": 68.89044636692336
+  },
+  {
+    "deal": {
+      "product_description": "The HP Victus laptop features the powerful 12th-Gen Intel Core i5 processor paired with an NVIDIA GeForce RTX 3050 GPU, making it an excellent choice for gamers and content creators. This laptop boasts an impressive 15.6\" Full HD display, ensuring vibrant visuals, and comes with 8GB of RAM and a 512GB SSD for swift multitasking and storage. Priced at $510 with free shipping, it offers performance and portability for on-the-go users.",
+      "price": 510.0,
+      "url": "https://www.dealnews.com/HP-Victus-12-th-Gen-i5-15-6-Laptop-w-NVIDIA-Ge-Force-RTX-3050-for-510-free-shipping/21742690.html?iref=rss-c39"
+    },
+    "estimate": 679.0962172666656,
+    "discount": 169.09621726666558
   }
 ]

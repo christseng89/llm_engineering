@@ -53,3 +53,4 @@ pip install typing_extensions
 pip install twilio
 pip install asyncio
 pip install aiohttp
+pip install pypandoc

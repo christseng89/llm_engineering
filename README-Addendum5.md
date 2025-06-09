@@ -588,3 +588,47 @@ py price_is_right.py
 | ⑦  | **Specialist Agent**    | 對特定類別（如電子、玩具）進行更精細估價                            |
 | ⑧  | **Random Forest Agent** | 應用 ML 的 RF 模型作為傳統數值預測方法                         |
 | ⑨  | **Messaging Agent**     | 將最終結果通知使用者，發送 email、push 等通知                    |
+
+### Week 8 Day 5
+#### Learning Objectives
+- Master AI and LLM Engineering
+- Build an Agentic AI solution that can be deployed in production by Gradio and Modal
+
+http://localhost:8888/lab/tree/week8/day5.ipynb
+  - py price_is_right_final.py
+    - timer = gr.Timer(value=300, active=True) # every 5 minutes
+
+```code
+[2025-06-09 18:19:49 +0800] Kicking off Planning Agent
+[2025-06-09 18:19:49 +0800] [Planning Agent] Planning Agent is kicking off a run
+[2025-06-09 18:19:49 +0800] [Scanner Agent] Scanner Agent is about to fetch deals from RSS feed
+[2025-06-09 18:20:13 +0800] [Scanner Agent] Scanner Agent received 82 deals not already scraped
+[2025-06-09 18:20:13 +0800] [Scanner Agent] Number of deals fetched 82
+[2025-06-09 18:20:13 +0800] [Scanner Agent] Scanner Agent is calling OpenAI using Structured Output
+[2025-06-09 18:20:25 +0800] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-09 18:20:25 +0800] [Scanner Agent] Scanner Agent received 5 selected deals with price>0 from OpenAI
+[2025-06-09 18:20:25 +0800] [Planning Agent] Planning Agent is pricing up a potential deal
+[2025-06-09 18:20:25 +0800] [Ensemble Agent] Running Ensemble Agent - collaborating with specialist, frontier and random forest agents
+[2025-06-09 18:20:25 +0800] [Specialist Agent] Specialist Agent is calling remote fine-tuned model
+...
+[2025-06-09 18:21:29 +0800] [Ensemble Agent] Ensemble Agent complete - returning $343.81
+[2025-06-09 18:21:29 +0800] [Planning Agent] Planning Agent has processed a deal with discount $63.81
+[2025-06-09 18:21:29 +0800] [Planning Agent] Planning Agent has identified the best deal has discount $169.10
+[2025-06-09 18:21:29 +0800] [Messaging Agent] Messaging Agent is sending a push notification
+[2025-06-09 18:21:30 +0800] [Messaging Agent] Messaging Agent has completed
+[2025-06-09 18:21:30 +0800] [Planning Agent] Planning Agent has completed a run
+[2025-06-09 18:21:30 +0800] Planning Agent has completed and returned: deal=Deal(product_description='The HP Victus laptop features the powerful 12th-Gen Intel Core i5 processor paired with an NVIDIA GeForce RTX 3050 GPU, making it an excellent choice for gamers and content creators. This laptop boasts an impressive 15.6" Full HD display, ensuring vibrant visuals, and comes with 8GB of RAM and a 512GB SSD for swift multitasking and storage. Priced at $510 with free shipping, it offers performance and portability for on-the-go users.', price=510.0, url='https://www.dealnews.com/HP-Victus-12-th-Gen-i5-15-6-Laptop-w-NVIDIA-Ge-Force-RTX-3050-for-510-free-shipping/21742690.html?iref=rss-c39') estimate=679.0962172666656 discount=169.09621726666558
+
+```
+
+### Agentic AI Project Q&A
+#### Convert md to word
+- cd week5\community-contributions
+- py convert_md_to_word.py
+
+#### Agentic AI project Q&A
+- http://localhost:8888/lab/tree/week5/community-contributions/day5.markdown_llm_kw_word.ipynb
+  - What is Embeddings?
+  - What are the steps to create a dataset?
+  - What is RAG?
+  - What is Agentic AI?
